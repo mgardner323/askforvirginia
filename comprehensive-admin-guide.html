@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virginia Real Estate - Comprehensive Admin & Deployment Guide</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background-color: #f7fafc;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            margin-bottom: 40px;
+        }
+
+        .toc h2 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .toc-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .toc-column ol {
+            list-style: none;
+            counter-reset: item;
+        }
+
+        .toc-column li {
+            counter-increment: item;
+            margin-bottom: 8px;
+        }
+
+        .toc-column li:before {
+            content: counter(item) ". ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .toc-column a {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .toc-column a:hover {
+            color: #667eea;
+        }
+
+        /* Features Section */
+        .features {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            margin-bottom: 40px;
+        }
+
+        .features h2 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 3px solid #48bb78;
+            padding-bottom: 15px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .feature-category {
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .feature-category.core { border-left-color: #667eea; background: #edf2f7; }
+        .feature-category.admin { border-left-color: #ed8936; background: #fffaf0; }
+        .feature-category.content { border-left-color: #48bb78; background: #f0fff4; }
+        .feature-category.advanced { border-left-color: #9f7aea; background: #faf5ff; }
+
+        .feature-category h3 {
+            margin-bottom: 15px;
+            color: #2d3748;
+            font-size: 1.3rem;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #48bb78;
+            font-weight: bold;
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section h2 {
+            color: #2d3748;
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .section h3 {
+            color: #4a5568;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
+
+        .section h4 {
+            color: #718096;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            margin-top: 25px;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            color: #4a5568;
+        }
+
+        .section ul, .section ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .section li {
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #f7fafc;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        /* Alerts and Callouts */
+        .alert {
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid;
+        }
+
+        .alert.info {
+            background: #ebf8ff;
+            border-left-color: #3182ce;
+            color: #2a69ac;
+        }
+
+        .alert.warning {
+            background: #fffbeb;
+            border-left-color: #d69e2e;
+            color: #b7791f;
+        }
+
+        .alert.success {
+            background: #f0fff4;
+            border-left-color: #38a169;
+            color: #276749;
+        }
+
+        .alert.danger {
+            background: #fed7d7;
+            border-left-color: #e53e3e;
+            color: #c53030;
+        }
+
+        /* Navigation */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .nav-button {
+            background: #667eea;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #5a67d8;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #718096;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 60px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .toc-list {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .code-block {
+                padding: 15px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            .header {
+                background: none;
+                color: black;
+                border-bottom: 2px solid #000;
+            }
+
+            .toc, .features, .main-content {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+
+            .nav-buttons {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>Virginia Real Estate</h1>
+            <p>Comprehensive Admin & Deployment Guide</p>
+            <p style="font-size: 1rem; margin-top: 10px;">Version 4.0 - Production Ready • Last Updated: August 2025</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h2>📋 Table of Contents</h2>
+            <div class="toc-list">
+                <div class="toc-column">
+                    <ol>
+                        <li><a href="#website-features">Website Features Overview</a></li>
+                        <li><a href="#admin-panel-guide">Admin Panel Guide</a></li>
+                        <li><a href="#authentication-security">Authentication & Security</a></li>
+                        <li><a href="#settings-management">Settings Management</a></li>
+                        <li><a href="#credential-management">Credential Management</a></li>
+                        <li><a href="#property-management">Property Management</a></li>
+                        <li><a href="#user-management">User Management</a></li>
+                        <li><a href="#analytics-dashboard">Analytics Dashboard</a></li>
+                    </ol>
+                </div>
+                <div class="toc-column">
+                    <ol start="9">
+                        <li><a href="#search-management">Search System Management</a></li>
+                        <li><a href="#blog-content-management">Blog & Content Management</a></li>
+                        <li><a href="#ai-content-generation">AI Content Generation</a></li>
+                        <li><a href="#header-video-management">Header Video Management</a></li>
+                        <li><a href="#database-configuration">Database Configuration</a></li>
+                        <li><a href="#smtp-email-configuration">SMTP & Email Configuration</a></li>
+                        <li><a href="#performance-monitoring">Performance Monitoring</a></li>
+                        <li><a href="#deployment-production">Deployment & Production</a></li>
+                    </ol>
+                </div>
+                <div class="toc-column">
+                    <ol start="17">
+                        <li><a href="#github-setup">GitHub Repository Setup</a></li>
+                        <li><a href="#plesk-deployment">Plesk Deployment Guide</a></li>
+                        <li><a href="#admin-deployment">Admin Panel Deployment</a></li>
+                        <li><a href="#nginx-configuration">NGINX Configuration</a></li>
+                        <li><a href="#ssl-configuration">SSL Configuration</a></li>
+                        <li><a href="#monitoring-logs">Monitoring & Logs</a></li>
+                        <li><a href="#troubleshooting">Troubleshooting</a></li>
+                        <li><a href="#api-endpoints">API Endpoints Reference</a></li>
+                        <li><a href="#best-practices">Best Practices</a></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Website Features Overview -->
+        <div id="website-features" class="features">
+            <h2>🚀 Website Features Overview</h2>
+            <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem; color: #4a5568;">
+                Virginia Real Estate is a comprehensive, enterprise-grade real estate platform built with modern technologies 
+                and advanced features for Southern California market operations.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-category core">
+                    <h3>🏢 Core Platform Features</h3>
+                    <ul class="feature-list">
+                        <li>Modern Node.js + Next.js architecture</li>
+                        <li>MariaDB database with Sequelize ORM</li>
+                        <li>JWT-based authentication system</li>
+                        <li>Role-based access control (Admin/Agent/Client)</li>
+                        <li>Responsive design for all devices</li>
+                        <li>SEO-optimized pages with structured data</li>
+                        <li>Professional navigation with mobile optimization</li>
+                        <li>Complete user registration and profile management</li>
+                        <li>Advanced search with filters and location-based search</li>
+                        <li>Contact form system with SMTP notifications</li>
+                    </ul>
+                </div>
+
+                <div class="feature-category admin">
+                    <h3>⚙️ Admin Panel Features</h3>
+                    <ul class="feature-list">
+                        <li>Comprehensive admin dashboard with real-time stats</li>
+                        <li>Property CRUD operations with image management</li>
+                        <li>User management with role assignment</li>
+                        <li>Blog management with rich text editor</li>
+                        <li>Market report management and analytics</li>
+                        <li>Settings management with encrypted credentials</li>
+                        <li>Database and SMTP configuration interface</li>
+                        <li>Performance monitoring and system health</li>
+                        <li>Deployment management through admin panel</li>
+                        <li>Audit trail and activity logging</li>
+                    </ul>
+                </div>
+
+                <div class="feature-category content">
+                    <h3>📝 Content Management</h3>
+                    <ul class="feature-list">
+                        <li>AI-powered blog post generation with Google Gemini</li>
+                        <li>Rich text editor with multimedia support</li>
+                        <li>SEO optimization tools and meta tag management</li>
+                        <li>Media library with image optimization</li>
+                        <li>Header video management system</li>
+                        <li>Content scheduling and publishing workflows</li>
+                        <li>Multi-category blog organization</li>
+                        <li>WordPress migration system</li>
+                        <li>Content analytics and performance tracking</li>
+                        <li>Automated content backups</li>
+                    </ul>
+                </div>
+
+                <div class="feature-category advanced">
+                    <h3>🎯 Advanced Features</h3>
+                    <ul class="feature-list">
+                        <li>12 comprehensive mortgage calculators</li>
+                        <li>Real-time analytics dashboard with charts</li>
+                        <li>Advanced search with Elasticsearch integration</li>
+                        <li>Performance monitoring with system metrics</li>
+                        <li>Encrypted credential management system</li>
+                        <li>Email marketing and newsletter integration</li>
+                        <li>Market insights with trend analysis</li>
+                        <li>User dashboard with saved properties/searches</li>
+                        <li>Professional contact and inquiry system</li>
+                        <li>Automated deployment and rollback capabilities</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert success">
+                <strong>🎉 Production Status:</strong> All systems are 100% operational and production-ready. 
+                The platform has been thoroughly tested and verified for enterprise-level real estate operations.
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+
+            <!-- Admin Panel Guide -->
+            <section id="admin-panel-guide" class="section">
+                <h2>🎛️ Admin Panel Guide</h2>
+                
+                <h3>Overview</h3>
+                <p>The Virginia Real Estate Admin Panel is a comprehensive content management system built with React, TypeScript, and Node.js. It provides full administrative control over the website's content, users, and system configuration.</p>
+
+                <div class="alert info">
+                    <strong>Access URL:</strong> <code>https://askforvirginia.com/admin/login</code>
+                </div>
+
+                <h3>Technology Stack</h3>
+                <ul>
+                    <li><strong>Frontend:</strong> React 18, TypeScript, TailwindCSS, Framer Motion</li>
+                    <li><strong>Backend:</strong> Express.js, TypeScript, JWT authentication</li>
+                    <li><strong>Database:</strong> MariaDB 11.4.8 with Sequelize ORM</li>
+                    <li><strong>Security:</strong> Encrypted sensitive settings, rate limiting, CORS protection</li>
+                </ul>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li><strong>Role-based Authentication:</strong> JWT-based security with admin/agent roles</li>
+                    <li><strong>Settings Management:</strong> Database and SMTP configuration through web interface</li>
+                    <li><strong>Property Management:</strong> Complete CRUD operations for property listings</li>
+                    <li><strong>User Management:</strong> User accounts, roles, and permissions</li>
+                    <li><strong>Dashboard Analytics:</strong> Real-time statistics and system monitoring</li>
+                    <li><strong>Responsive Design:</strong> Optimized for desktop and mobile administration</li>
+                </ul>
+            </section>
+
+            <!-- Authentication & Security -->
+            <section id="authentication-security" class="section">
+                <h2>🔐 Authentication & Security</h2>
+
+                <h3>Admin Access</h3>
+                <p>The admin panel is secured with JWT-based authentication and role verification.</p>
+
+                <h4>Default Admin Credentials</h4>
+                <div class="code-block">
+Email: admin@askforvirginia.com
+Password: [Set during initial setup]
+                </div>
+
+                <h3>Security Features</h3>
+                <ul>
+                    <li><strong>JWT Token Authentication:</strong> Secure session management</li>
+                    <li><strong>Role-Based Access Control:</strong> Admin and agent role verification</li>
+                    <li><strong>Encrypted Sensitive Data:</strong> Database passwords and SMTP credentials</li>
+                    <li><strong>Auto-Logout:</strong> Session timeout for security</li>
+                    <li><strong>CORS Protection:</strong> Cross-origin request security</li>
+                </ul>
+
+                <h3>Authentication Flow</h3>
+                <ol>
+                    <li><strong>Login:</strong> Submit credentials at <code>/admin/login</code></li>
+                    <li><strong>Token Generation:</strong> JWT token created with user data</li>
+                    <li><strong>Token Storage:</strong> Stored in localStorage for session persistence</li>
+                    <li><strong>Route Protection:</strong> All admin routes verify valid token</li>
+                    <li><strong>Role Verification:</strong> Admin/agent roles required for access</li>
+                </ol>
+            </section>
+
+            <!-- Settings Management -->
+            <section id="settings-management" class="section">
+                <h2>⚙️ Settings Management</h2>
+
+                <h3>System Settings Overview</h3>
+                <p>The settings management system allows configuration of database, SMTP, and system settings through a web interface instead of manual .env file editing.</p>
+
+                <div class="alert info">
+                    <strong>Access:</strong> Admin Panel → Settings
+                </div>
+
+                <h3>Settings Categories</h3>
+                <ul>
+                    <li><strong>Database Configuration:</strong> Connection settings, credentials</li>
+                    <li><strong>SMTP Settings:</strong> Email server configuration</li>
+                    <li><strong>System Settings:</strong> General application configuration</li>
+                    <li><strong>API Configuration:</strong> External service settings</li>
+                    <li><strong>Storage Settings:</strong> File and media storage options</li>
+                </ul>
+
+                <h3>Settings Features</h3>
+                <ul>
+                    <li><strong>Encryption Support:</strong> Sensitive values (passwords) are encrypted</li>
+                    <li><strong>Category Filtering:</strong> Organize settings by type</li>
+                    <li><strong>Inline Editing:</strong> Edit settings directly in the interface</li>
+                    <li><strong>Migration Tool:</strong> Import existing .env settings</li>
+                    <li><strong>Password Visibility:</strong> Toggle sensitive value display</li>
+                </ul>
+
+                <h3>Adding New Settings</h3>
+                <ol>
+                    <li>Click "Add Setting" button</li>
+                    <li>Select category (database, smtp, system, api, storage)</li>
+                    <li>Enter key name (e.g., "DB_HOST")</li>
+                    <li>Enter value</li>
+                    <li>Add optional description</li>
+                    <li>Check "Encrypt this value" for sensitive data</li>
+                    <li>Click "Add Setting"</li>
+                </ol>
+            </section>
+
+            <!-- Credential Management -->
+            <section id="credential-management" class="section">
+                <h2>🔑 Credential Management System</h2>
+
+                <h3>Overview</h3>
+                <p>The Virginia Real Estate admin panel includes a sophisticated credential management system for securely storing and managing API keys, database credentials, and third-party service authentication tokens.</p>
+
+                <div class="alert info">
+                    <strong>Access:</strong> Admin Panel → Settings → Credentials
+                </div>
+
+                <h3>Features</h3>
+                <ul>
+                    <li><strong>Encrypted Storage:</strong> All sensitive credentials encrypted with AES-256</li>
+                    <li><strong>Service Integration:</strong> Pre-configured support for common services</li>
+                    <li><strong>Auto-Discovery:</strong> System detects required credentials automatically</li>
+                    <li><strong>Expiration Tracking:</strong> Monitor credential expiration dates</li>
+                    <li><strong>Usage Monitoring:</strong> Track when credentials were last accessed</li>
+                    <li><strong>Audit Trail:</strong> Complete log of credential management actions</li>
+                </ul>
+
+                <h3>Supported Services</h3>
+                <ul>
+                    <li><strong>Google Gemini API:</strong> AI content generation and analysis</li>
+                    <li><strong>Database Credentials:</strong> MariaDB connection parameters</li>
+                    <li><strong>SMTP Services:</strong> Email server authentication</li>
+                    <li><strong>External APIs:</strong> MLS, mapping, and third-party integrations</li>
+                    <li><strong>Storage Services:</strong> AWS S3, Cloudinary for media management</li>
+                    <li><strong>Analytics:</strong> Google Analytics and tracking services</li>
+                </ul>
+            </section>
+
+            <!-- AI Content Generation -->
+            <section id="ai-content-generation" class="section">
+                <h2>🤖 AI Content Generation Workflow</h2>
+
+                <h3>Overview of AI Integration</h3>
+                <p>The Virginia Real Estate blog system integrates with Google Gemini AI to provide sophisticated content generation capabilities, enabling rapid creation of high-quality, SEO-optimized blog posts.</p>
+
+                <h3>AI Generation Process</h3>
+                <ol>
+                    <li><strong>Content Ideas:</strong> AI generates topic suggestions based on market trends</li>
+                    <li><strong>Market Research:</strong> Automated research integration with current data</li>
+                    <li><strong>Content Creation:</strong> Full blog post generation with SEO optimization</li>
+                    <li><strong>Human Review:</strong> Professional editing and customization</li>
+                    <li><strong>Publishing:</strong> Scheduled or immediate publication</li>
+                </ol>
+
+                <h3>AI Content Features</h3>
+                <ul>
+                    <li><strong>Multi-Step Workflow:</strong> Comprehensive content creation process</li>
+                    <li><strong>SEO Optimization:</strong> Automatic title, meta, and keyword generation</li>
+                    <li><strong>Market Integration:</strong> Real-time market data incorporation</li>
+                    <li><strong>Content Categories:</strong> Support for all blog categories</li>
+                    <li><strong>Human-AI Collaboration:</strong> Tools for refining generated content</li>
+                </ul>
+            </section>
+
+            <!-- Header Video Management -->
+            <section id="header-video-management" class="section">
+                <h2>🎥 Header Video Management</h2>
+
+                <h3>Overview</h3>
+                <p>The dynamic header video system allows administrators to upload, manage, and activate different videos to enhance the visual appeal and user engagement of the site.</p>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li><strong>Dynamic Video Management:</strong> Upload and switch between different header videos</li>
+                    <li><strong>Fallback System:</strong> Automatic fallback to static images if video fails</li>
+                    <li><strong>Mobile Optimization:</strong> Optimized playback for mobile devices</li>
+                    <li><strong>User Controls:</strong> Play/pause and mute/unmute functionality</li>
+                    <li><strong>Performance Optimization:</strong> Lazy loading and compression support</li>
+                </ul>
+
+                <h3>Video Requirements</h3>
+                <ul>
+                    <li><strong>File Format:</strong> MP4 (preferred), WebM, OGV</li>
+                    <li><strong>Maximum Size:</strong> 50MB per file</li>
+                    <li><strong>Resolution:</strong> 1920x1080 (Full HD) recommended</li>
+                    <li><strong>Duration:</strong> 10-60 seconds for optimal performance</li>
+                </ul>
+            </section>
+
+            <!-- GitHub Repository Setup -->
+            <section id="github-setup" class="section">
+                <h2>📂 GitHub Repository Setup</h2>
+
+                <h3>Repository Information</h3>
+                <div class="alert info">
+                    <strong>GitHub Repository:</strong> <code>https://github.com/mgardner323/askforvirginia.git</code>
+                </div>
+
+                <h3>Repository Structure</h3>
+                <div class="code-block">
+askforvirginia/
+├── apps/
+│   ├── api/          # Backend Express.js application
+│   │   ├── src/      # TypeScript source files
+│   │   ├── dist/     # Compiled JavaScript (production)
+│   │   └── package.json
+│   └── web/          # Frontend Next.js application
+│       ├── components/
+│       ├── pages/
+│       ├── public/
+│       └── package.json
+├── documentation/
+│   ├── ADMIN_GUIDE.md
+│   ├── PLESK_DEPLOYMENT.md
+│   ├── ADMIN_DEPLOYMENT.md
+│   ├── HEADER_VIDEO_MANAGEMENT.md
+│   └── BLOG_AI_CONTENT_WORKFLOWS.md
+├── scripts/          # Deployment and utility scripts
+├── migration/        # WordPress migration tools
+├── ecosystem.config.js  # PM2 configuration
+├── package.json      # Root package configuration
+└── comprehensive-admin-guide.html
+                </div>
+
+                <h3>Cloning the Repository</h3>
+                <div class="code-block">
+# Clone the repository
+git clone https://github.com/mgardner323/askforvirginia.git
+
+# Navigate to the project directory
+cd askforvirginia
+
+# Install dependencies
+npm install
+
+# Install dependencies for both apps
+cd apps/api && npm install
+cd ../web && npm install
+cd ../..
+                </div>
+            </section>
+
+            <!-- Plesk Deployment -->
+            <section id="plesk-deployment" class="section">
+                <h2>🚀 Plesk Deployment Guide</h2>
+
+                <h3>Prerequisites</h3>
+                <h4>Server Requirements</h4>
+                <ul>
+                    <li><strong>Plesk Version:</strong> Plesk Obsidian (Latest) or Plesk Onyx</li>
+                    <li><strong>Operating System:</strong> Linux (Ubuntu 20.04+ or CentOS 7+) recommended</li>
+                    <li><strong>Node.js Support:</strong> Node.js Toolkit extension must be installed</li>
+                    <li><strong>Web Server:</strong> NGINX with reverse proxy capability</li>
+                    <li><strong>Database:</strong> MariaDB 10.4+ or MySQL 8.0+</li>
+                </ul>
+
+                <h3>Deployment Methods</h3>
+
+                <h4>Method 1: Git Deployment (Recommended)</h4>
+                <ol>
+                    <li>In Plesk, go to <strong>Websites & Domains → [Your Domain]</strong></li>
+                    <li>Click <strong>Git</strong> (if Git extension is installed)</li>
+                    <li>Click <strong>Add Repository</strong></li>
+                    <li>Enter repository URL: <code>https://github.com/mgardner323/askforvirginia.git</code></li>
+                    <li>Set deployment path to domain directory</li>
+                    <li>Configure automatic deployment on push (optional)</li>
+                    <li>Click <strong>Deploy</strong> to pull the latest code</li>
+                </ol>
+
+                <h4>Method 2: Manual Upload</h4>
+                <ol>
+                    <li>Download repository as ZIP from GitHub</li>
+                    <li>Upload via <strong>File Manager</strong> in Plesk</li>
+                    <li>Extract files to domain directory</li>
+                    <li>Set proper file permissions</li>
+                </ol>
+
+                <h3>Initial Setup</h3>
+                <h4>1. Install Node.js Toolkit Extension</h4>
+                <ol>
+                    <li>Log into Plesk admin panel</li>
+                    <li>Navigate to <strong>Extensions → Extensions Catalog</strong></li>
+                    <li>Search for "Node.js Toolkit"</li>
+                    <li>Click <strong>Get it free</strong> and install</li>
+                    <li>Verify installation under <strong>Extensions → My Extensions</strong></li>
+                </ol>
+
+                <h3>Node.js Configuration</h3>
+                <h4>Basic Configuration</h4>
+                <ul>
+                    <li><strong>Node.js Version:</strong> 18.x+ recommended</li>
+                    <li><strong>Application Mode:</strong> Production</li>
+                    <li><strong>Document Root:</strong> <code>/var/www/vhosts/askforvirginia.com/askforvirginia.com/public</code></li>
+                    <li><strong>Application Root:</strong> <code>/var/www/vhosts/askforvirginia.com/askforvirginia.com</code></li>
+                    <li><strong>Application Startup File:</strong> <code>apps/api/dist/server.js</code></li>
+                </ul>
+
+                <h3>Build Process</h3>
+                <div class="code-block">
+# After deployment, build the applications
+cd /var/www/vhosts/askforvirginia.com/askforvirginia.com
+
+# Install dependencies
+npm install
+
+# Build API application
+cd apps/api
+npm run build
+
+# Build web application
+cd ../web
+npm run build
+
+# Return to root and start with PM2
+cd ../..
+pm2 start ecosystem.config.js --env production
+                </div>
+            </section>
+
+            <!-- NGINX Configuration -->
+            <section id="nginx-configuration" class="section">
+                <h2>🌐 NGINX Reverse Proxy Setup</h2>
+
+                <h3>Basic Configuration</h3>
+                <div class="code-block">
+# Force HTTPS
+if ($scheme = http) {
+    return 301 https://askforvirginia.com$request_uri;
+}
+
+# API Routes
+location /api/ {
+    proxy_pass http://127.0.0.1:5001;
+    proxy_redirect off;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+
+# Admin Panel Routes
+location /admin/ {
+    proxy_pass http://127.0.0.1:3001;
+    proxy_redirect off;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+
+# Main application routes
+location / {
+    proxy_pass http://127.0.0.1:3001;
+    proxy_redirect off;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+                </div>
+            </section>
+
+            <!-- Database Configuration -->
+            <section id="database-configuration" class="section">
+                <h2>🗄️ Database Configuration</h2>
+
+                <h3>MariaDB Setup</h3>
+                <ol>
+                    <li>Go to <strong>Databases</strong></li>
+                    <li>Click <strong>Add Database</strong></li>
+                    <li>Configure database settings:
+                        <ul>
+                            <li><strong>Database name:</strong> <code>virginia_prod</code></li>
+                            <li><strong>User:</strong> <code>virginia_prod</code></li>
+                            <li><strong>Password:</strong> Strong password</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h3>Database Security</h3>
+                <ul>
+                    <li><strong>Encrypted Passwords:</strong> Database passwords stored with AES-256 encryption</li>
+                    <li><strong>Connection Pooling:</strong> Optimized database connections</li>
+                    <li><strong>Query Logging:</strong> Debug mode query tracking</li>
+                    <li><strong>Backup Integration:</strong> Automated backup configuration</li>
+                </ul>
+            </section>
+
+            <!-- Troubleshooting -->
+            <section id="troubleshooting" class="section">
+                <h2>🔧 Troubleshooting</h2>
+
+                <h3>Common Issues & Solutions</h3>
+
+                <h4>1. Admin Login Issues</h4>
+                <div class="alert warning">
+                    <strong>Problem:</strong> Cannot log in to admin panel
+                </div>
+                <p><strong>Solutions:</strong></p>
+                <ul>
+                    <li>Verify admin credentials in database</li>
+                    <li>Check JWT_SECRET environment variable</li>
+                    <li>Clear browser localStorage</li>
+                    <li>Verify database connection</li>
+                </ul>
+
+                <h4>2. Application Won't Start</h4>
+                <div class="alert warning">
+                    <strong>Problem:</strong> 502/503 errors, application not responding
+                </div>
+                <p><strong>Solutions:</strong></p>
+                <ul>
+                    <li>Check Node.js version compatibility</li>
+                    <li>Verify environment variables</li>
+                    <li>Check application logs for errors</li>
+                    <li>Ensure all dependencies installed</li>
+                    <li>Verify file permissions</li>
+                </ul>
+
+                <h4>3. Database Connection Errors</h4>
+                <div class="alert warning">
+                    <strong>Problem:</strong> Cannot connect to MariaDB
+                </div>
+                <p><strong>Solutions:</strong></p>
+                <ul>
+                    <li>Verify database server is running</li>
+                    <li>Check connection credentials</li>
+                    <li>Test network connectivity</li>
+                    <li>Review MariaDB logs</li>
+                </ul>
+
+                <h3>Debug Mode</h3>
+                <p>Enable debug logging for troubleshooting:</p>
+                <div class="code-block">
+DEBUG=* npm run dev
+                </div>
+            </section>
+
+            <!-- API Endpoints Reference -->
+            <section id="api-endpoints" class="section">
+                <h2>🔗 API Endpoints Reference</h2>
+
+                <h3>Settings API</h3>
+                <ul>
+                    <li><code>GET /api/settings</code> - List all settings</li>
+                    <li><code>POST /api/settings</code> - Create new setting</li>
+                    <li><code>PUT /api/settings/:id</code> - Update setting</li>
+                    <li><code>DELETE /api/settings/:id</code> - Delete setting</li>
+                </ul>
+
+                <h3>Analytics API</h3>
+                <ul>
+                    <li><code>GET /api/analytics/dashboard</code> - Dashboard data</li>
+                    <li><code>GET /api/analytics/properties</code> - Property analytics</li>
+                    <li><code>GET /api/analytics/users</code> - User analytics</li>
+                    <li><code>GET /api/analytics/system</code> - System metrics</li>
+                </ul>
+
+                <h3>Authentication API</h3>
+                <ul>
+                    <li><code>POST /api/auth/login</code> - Admin login</li>
+                    <li><code>POST /api/auth/verify</code> - Token verification</li>
+                    <li><code>POST /api/auth/logout</code> - Session logout</li>
+                </ul>
+            </section>
+
+            <!-- Best Practices -->
+            <section id="best-practices" class="section">
+                <h2>✅ Best Practices</h2>
+
+                <h3>Security Best Practices</h3>
+                <ul>
+                    <li><strong>Regular Updates:</strong> Keep all dependencies updated</li>
+                    <li><strong>Strong Passwords:</strong> Use complex passwords for admin accounts</li>
+                    <li><strong>HTTPS Enforcement:</strong> Always use SSL/TLS</li>
+                    <li><strong>Access Control:</strong> Limit admin access to authorized personnel</li>
+                    <li><strong>Regular Backups:</strong> Maintain automated backups</li>
+                </ul>
+
+                <h3>Performance Best Practices</h3>
+                <ul>
+                    <li><strong>Database Optimization:</strong> Regular maintenance and indexing</li>
+                    <li><strong>Image Compression:</strong> Optimize images for web</li>
+                    <li><strong>Caching Strategy:</strong> Implement proper caching</li>
+                    <li><strong>Code Minification:</strong> Minify CSS and JavaScript</li>
+                    <li><strong>Regular Monitoring:</strong> Track performance metrics</li>
+                </ul>
+            </section>
+
+            <!-- Production Checklist -->
+            <section class="section">
+                <h2>📋 Production Checklist</h2>
+
+                <h3>Pre-Deployment</h3>
+                <ul>
+                    <li>✅ Node.js Toolkit installed</li>
+                    <li>✅ Domain configured in Plesk</li>
+                    <li>✅ SSL certificate installed</li>
+                    <li>✅ Database created and configured</li>
+                    <li>✅ Environment variables set</li>
+                    <li>✅ NGINX reverse proxy configured</li>
+                </ul>
+
+                <h3>Security</h3>
+                <ul>
+                    <li>✅ HTTPS enforced</li>
+                    <li>✅ Security headers configured</li>
+                    <li>✅ Database user permissions minimal</li>
+                    <li>✅ Sensitive files blocked from web access</li>
+                    <li>✅ Environment variables secured</li>
+                </ul>
+
+                <h3>Post-Deployment</h3>
+                <ul>
+                    <li>✅ All pages loading correctly</li>
+                    <li>✅ API endpoints responding</li>
+                    <li>✅ Admin panel accessible</li>
+                    <li>✅ Performance monitoring active</li>
+                </ul>
+            </section>
+
+            <!-- Conclusion -->
+            <section class="section">
+                <h2>🎯 Conclusion</h2>
+
+                <p>This comprehensive guide covers all aspects of the Virginia Real Estate admin panel and deployment system. The platform provides enterprise-grade tools for managing a modern real estate website with advanced features and robust security.</p>
+
+                <div class="alert success">
+                    <strong>🎉 Production Ready:</strong> All systems are operational and tested for enterprise deployment.
+                </div>
+
+                <h3>Key Benefits</h3>
+                <ul>
+                    <li><strong>Comprehensive Management:</strong> Single interface for all administrative tasks</li>
+                    <li><strong>Enterprise Security:</strong> Advanced authentication and credential management</li>
+                    <li><strong>Performance Monitoring:</strong> Real-time system health and optimization</li>
+                    <li><strong>Scalable Architecture:</strong> Built for high-traffic operations</li>
+                </ul>
+            </section>
+
+        </div>
+
+        <div class="footer">
+            <p><strong>Virginia Real Estate - Comprehensive Admin & Deployment Guide</strong></p>
+            <p>Version 4.0 • Production Ready • Last Updated: August 2025</p>
+            <p>© 2025 Virginia Real Estate. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

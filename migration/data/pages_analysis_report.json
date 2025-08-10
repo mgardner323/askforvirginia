@@ -1,0 +1,197 @@
+{
+  "analysis_date": "2025-08-08T02:40:21.191Z",
+  "total_pages": 17,
+  "recommendations": [
+    {
+      "id": 18118,
+      "title": "hub",
+      "slug": "hub",
+      "template": "standard",
+      "content_length": 0,
+      "has_content": false,
+      "recommendation": "skip",
+      "reason": "Very little content, not worth migrating",
+      "action": "Delete or ignore"
+    },
+    {
+      "id": 12550,
+      "title": "New Listings",
+      "slug": "new-listings",
+      "template": "standard",
+      "content_length": 1479,
+      "has_content": true,
+      "recommendation": "create_specialized_page",
+      "reason": "Real estate specific page with valuable content",
+      "action": "Create /pages/new_listings.tsx"
+    },
+    {
+      "id": 9,
+      "title": "Properties",
+      "slug": "properties",
+      "template": "standard",
+      "content_length": 19,
+      "has_content": false,
+      "recommendation": "skip",
+      "reason": "Properties functionality already built in new system",
+      "action": "Use existing /properties pages"
+    },
+    {
+      "id": 2,
+      "title": "Sample Page",
+      "slug": "sample-page",
+      "template": "standard",
+      "content_length": 1257,
+      "has_content": true,
+      "recommendation": "skip",
+      "reason": "Demo/test page not needed in production",
+      "action": "Delete"
+    },
+    {
+      "id": 6384,
+      "title": "Lifestyle",
+      "slug": "lifestyle",
+      "template": "standard",
+      "content_length": 584,
+      "has_content": true,
+      "recommendation": "convert_to_blog_category",
+      "reason": "Content-focused page better served as blog category",
+      "action": "Use existing blog with category filter: /blog?category=lifestyle"
+    },
+    {
+      "id": 4683,
+      "title": "Community Support",
+      "slug": "community-support",
+      "template": "standard",
+      "content_length": 2464,
+      "has_content": true,
+      "recommendation": "create_static_page",
+      "reason": "Has substantial content worth preserving",
+      "action": "Create /pages/community_support.tsx"
+    },
+    {
+      "id": 744,
+      "title": "Home Improvement",
+      "slug": "744-2",
+      "template": "standard",
+      "content_length": 580,
+      "has_content": true,
+      "recommendation": "create_static_page",
+      "reason": "Has substantial content worth preserving",
+      "action": "Create /pages/744_2.tsx"
+    },
+    {
+      "id": 703,
+      "title": "Real Estate News",
+      "slug": "real-estate-news",
+      "template": "standard",
+      "content_length": 855,
+      "has_content": true,
+      "recommendation": "convert_to_blog_category",
+      "reason": "Content-focused page better served as blog category",
+      "action": "Use existing blog with category filter: /blog?category=real-estate-news"
+    },
+    {
+      "id": 216,
+      "title": "Rent or Buy",
+      "slug": "rent-or-buy",
+      "template": "standard",
+      "content_length": 807,
+      "has_content": true,
+      "recommendation": "create_static_page",
+      "reason": "Has substantial content worth preserving",
+      "action": "Create /pages/rent_or_buy.tsx"
+    },
+    {
+      "id": 182,
+      "title": "Properties",
+      "slug": "properties-2",
+      "template": "standard",
+      "content_length": 19,
+      "has_content": false,
+      "recommendation": "skip",
+      "reason": "Properties functionality already built in new system",
+      "action": "Use existing /properties pages"
+    },
+    {
+      "id": 179,
+      "title": "Community Reports",
+      "slug": "community-report",
+      "template": "standard",
+      "content_length": 883,
+      "has_content": true,
+      "recommendation": "create_specialized_page",
+      "reason": "Real estate specific page with valuable content",
+      "action": "Create /pages/community_report.tsx"
+    },
+    {
+      "id": 150,
+      "title": "Search",
+      "slug": "search",
+      "template": "standard",
+      "content_length": 867,
+      "has_content": true,
+      "recommendation": "create_specialized_page",
+      "reason": "Real estate specific page with valuable content",
+      "action": "Create /pages/search.tsx"
+    },
+    {
+      "id": 112,
+      "title": "The Market",
+      "slug": "the-market",
+      "template": "standard",
+      "content_length": 2289,
+      "has_content": true,
+      "recommendation": "create_specialized_page",
+      "reason": "Real estate specific page with valuable content",
+      "action": "Create /pages/the_market.tsx"
+    },
+    {
+      "id": 105,
+      "title": "Contact Us",
+      "slug": "contact-us",
+      "template": "contact",
+      "content_length": 317,
+      "has_content": true,
+      "recommendation": "create_contact_page",
+      "reason": "Contact page is essential for business",
+      "action": "Create /pages/contact.tsx (may already exist)"
+    },
+    {
+      "id": 94,
+      "title": "About Us",
+      "slug": "about-us",
+      "template": "about",
+      "content_length": 1523,
+      "has_content": true,
+      "recommendation": "create_about_page",
+      "reason": "About page is important for business and SEO",
+      "action": "Create /pages/about.tsx with this content"
+    },
+    {
+      "id": 92,
+      "title": "SimplyRETS Demo Page",
+      "slug": "simplyrets-listings",
+      "template": "standard",
+      "content_length": 51,
+      "has_content": false,
+      "recommendation": "skip",
+      "reason": "Very little content, not worth migrating",
+      "action": "Delete or ignore"
+    },
+    {
+      "id": 7,
+      "title": "Home",
+      "slug": "home",
+      "template": "home",
+      "content_length": 8778,
+      "has_content": true,
+      "recommendation": "convert_to_component",
+      "reason": "Home page content should be integrated into existing React home components",
+      "action": "Extract content and integrate into HeroSection, AboutVirginia, etc."
+    }
+  ],
+  "summary": {
+    "pages_to_migrate": 12,
+    "pages_to_skip": 5
+  }
+}

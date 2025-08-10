@@ -1,0 +1,14 @@
+{
+  "name": "@virginia-real-estate/shared-types",
+  "version": "1.0.0",
+  "description": "Shared TypeScript types for Virginia Real Estate",
+  "main": "index.ts",
+  "types": "index.ts",
+  "scripts": {
+    "build": "tsc",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}

@@ -1,0 +1,511 @@
+{
+  "migration_date": "2025-08-08T02:38:18.629Z",
+  "total_files": 50,
+  "downloaded": 50,
+  "failed": 0,
+  "success_rate": "100%",
+  "downloaded_files": [
+    {
+      "ID": 19537,
+      "post_title": "IE",
+      "slug": "ie",
+      "post_date": "2024-04-06T15:56:21.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2024/04/IE.png",
+      "file_path": "2024/04/IE.png",
+      "new_path": "blog/2024/04/ie.png",
+      "status": "success"
+    },
+    {
+      "ID": 19535,
+      "post_title": "2024-04-06_07-33-40",
+      "slug": "2024-04-06_07-33-40",
+      "post_date": "2024-04-06T15:54:35.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2024/04/2024-04-06_07-33-40.png",
+      "file_path": "2024/04/2024-04-06_07-33-40.png",
+      "new_path": "blog/2024/04/2024-04-06-07-33-40.png",
+      "status": "success"
+    },
+    {
+      "ID": 19221,
+      "post_title": "2023-09-09_08-34-43",
+      "slug": "2023-09-09_08-34-43",
+      "post_date": "2023-09-09T15:35:28.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2023/09/2023-09-09_08-34-43.png",
+      "file_path": "2023/09/2023-09-09_08-34-43.png",
+      "new_path": "blog/2023/09/2023-09-09-08-34-43.png",
+      "status": "success"
+    },
+    {
+      "ID": 19216,
+      "post_title": "Screenshot 2023-09-09 075028",
+      "slug": "screenshot-2023-09-09-075028",
+      "post_date": "2023-09-09T14:51:10.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2023/09/Screenshot-2023-09-09-075028.png",
+      "file_path": "2023/09/Screenshot-2023-09-09-075028.png",
+      "new_path": "blog/2023/09/screenshot-2023-09-09-075028.png",
+      "status": "success"
+    },
+    {
+      "ID": 19118,
+      "post_title": "Market2",
+      "slug": "market2",
+      "post_date": "2023-07-14T21:35:10.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2023/07/Market2.png",
+      "file_path": "2023/07/Market2.png",
+      "new_path": "blog/2023/07/market2.png",
+      "status": "success"
+    },
+    {
+      "ID": 19116,
+      "post_title": "Market",
+      "slug": "market",
+      "post_date": "2023-07-14T21:32:53.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2023/07/Market.png",
+      "file_path": "2023/07/Market.png",
+      "new_path": "blog/2023/07/market.png",
+      "status": "success"
+    },
+    {
+      "ID": 19000,
+      "post_title": "2023-03-ie-re-housing-data-report (1)",
+      "slug": "2023-03-ie-re-housing-data-report-1",
+      "post_date": "2023-05-02T21:15:39.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2023/05/2023-03-ie-re-housing-data-report-1.pdf",
+      "file_path": "2023/05/2023-03-ie-re-housing-data-report-1.pdf",
+      "new_path": "blog/2023/05/2023-03-ie-re-housing-data-report-1.pdf",
+      "status": "success"
+    },
+    {
+      "ID": 18999,
+      "post_title": "2023-05-02_14-10-29",
+      "slug": "2023-05-02_14-10-29",
+      "post_date": "2023-05-02T21:12:20.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2023/05/2023-05-02_14-10-29.png",
+      "file_path": "2023/05/2023-05-02_14-10-29.png",
+      "new_path": "blog/2023/05/2023-05-02-14-10-29.png",
+      "status": "success"
+    },
+    {
+      "ID": 18991,
+      "post_title": "Viginia",
+      "slug": "viginia",
+      "post_date": "2023-04-30T14:18:50.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2023/04/Viginia.png",
+      "file_path": "2023/04/Viginia.png",
+      "new_path": "blog/2023/04/viginia.png",
+      "status": "success"
+    },
+    {
+      "ID": 18990,
+      "post_title": "market-report-riverside-county-ca",
+      "slug": "market-report-riverside-county-ca",
+      "post_date": "2023-04-30T14:14:32.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2023/04/market-report-riverside-county-ca.pdf",
+      "file_path": "2023/04/market-report-riverside-county-ca.pdf",
+      "new_path": "blog/2023/04/market-report-riverside-county-ca.pdf",
+      "status": "success"
+    },
+    {
+      "ID": 18732,
+      "post_title": "IEBORE",
+      "slug": "iebore",
+      "post_date": "2022-12-15T19:22:40.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2022/12/IEBORE.png",
+      "file_path": "2022/12/IEBORE.png",
+      "new_path": "blog/2022/12/iebore.png",
+      "status": "success"
+    },
+    {
+      "ID": 18574,
+      "post_title": "report 2021",
+      "slug": "report-2021",
+      "post_date": "2022-09-21T00:47:00.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2022/09/report-2021.png",
+      "file_path": "2022/09/report-2021.png",
+      "new_path": "blog/2022/09/report-2021.png",
+      "status": "success"
+    },
+    {
+      "ID": 18540,
+      "post_title": "logo-by-ews",
+      "slug": "logo-by-ews",
+      "post_date": "2022-09-11T23:39:31.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2022/09/logo-by-ews.png",
+      "file_path": "2022/09/logo-by-ews.png",
+      "new_path": "blog/2022/09/logo-by-ews.png",
+      "status": "success"
+    },
+    {
+      "ID": 17173,
+      "post_title": "transitional-kitchen-7",
+      "slug": "transitional-kitchen-7-14",
+      "post_date": "2021-06-22T06:05:18.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/transitional-kitchen-7.jpg",
+      "file_path": "2021/06/transitional-kitchen-7.jpg",
+      "new_path": "blog/2021/06/transitional-kitchen-7-14.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17172,
+      "post_title": "transitional-kitchen-6",
+      "slug": "transitional-kitchen-6-15",
+      "post_date": "2021-06-22T06:05:18.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/transitional-kitchen-6.jpg",
+      "file_path": "2021/06/transitional-kitchen-6.jpg",
+      "new_path": "blog/2021/06/transitional-kitchen-6-15.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17171,
+      "post_title": "traditional-4",
+      "slug": "traditional-4-4",
+      "post_date": "2021-06-22T06:05:17.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/traditional-4.jpg",
+      "file_path": "2021/06/traditional-4.jpg",
+      "new_path": "blog/2021/06/traditional-4-4.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17168,
+      "post_title": "modern-porch",
+      "slug": "modern-porch",
+      "post_date": "2021-06-21T05:52:42.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/modern-porch.jpg",
+      "file_path": "2021/06/modern-porch.jpg",
+      "new_path": "blog/2021/06/modern-porch.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17167,
+      "post_title": "industrial-patio",
+      "slug": "industrial-patio-2",
+      "post_date": "2021-06-21T05:52:42.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/industrial-patio.jpg",
+      "file_path": "2021/06/industrial-patio.jpg",
+      "new_path": "blog/2021/06/industrial-patio-2.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17166,
+      "post_title": "transitional-balcony",
+      "slug": "transitional-balcony-2",
+      "post_date": "2021-06-21T05:52:42.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/transitional-balcony.jpg",
+      "file_path": "2021/06/transitional-balcony.jpg",
+      "new_path": "blog/2021/06/transitional-balcony-2.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17163,
+      "post_title": "contemporary-landscape-4",
+      "slug": "contemporary-landscape-4-7",
+      "post_date": "2021-06-21T05:52:41.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/contemporary-landscape-4.jpg",
+      "file_path": "2021/06/contemporary-landscape-4.jpg",
+      "new_path": "blog/2021/06/contemporary-landscape-4-7.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17162,
+      "post_title": "mediterranean-patio",
+      "slug": "mediterranean-patio-4",
+      "post_date": "2021-06-21T05:52:41.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/mediterranean-patio.jpg",
+      "file_path": "2021/06/mediterranean-patio.jpg",
+      "new_path": "blog/2021/06/mediterranean-patio-4.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17159,
+      "post_title": "contemporary-living-room-1",
+      "slug": "contemporary-living-room-1-13",
+      "post_date": "2021-06-21T05:52:40.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/contemporary-living-room-1.jpg",
+      "file_path": "2021/06/contemporary-living-room-1.jpg",
+      "new_path": "blog/2021/06/contemporary-living-room-1-13.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17158,
+      "post_title": "home-design-16",
+      "slug": "home-design-16-14",
+      "post_date": "2021-06-21T05:52:40.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/home-design-16.jpg",
+      "file_path": "2021/06/home-design-16.jpg",
+      "new_path": "blog/2021/06/home-design-16-14.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17157,
+      "post_title": "contemporary-entry-1",
+      "slug": "contemporary-entry-1-6",
+      "post_date": "2021-06-21T05:52:39.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/contemporary-entry-1.jpg",
+      "file_path": "2021/06/contemporary-entry-1.jpg",
+      "new_path": "blog/2021/06/contemporary-entry-1-6.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17154,
+      "post_title": "modern-kitchen",
+      "slug": "modern-kitchen-12",
+      "post_date": "2021-06-20T05:28:03.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/modern-kitchen.jpg",
+      "file_path": "2021/06/modern-kitchen.jpg",
+      "new_path": "blog/2021/06/modern-kitchen-12.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17153,
+      "post_title": "modern-dining-room-1",
+      "slug": "modern-dining-room-1",
+      "post_date": "2021-06-20T05:28:02.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/modern-dining-room-1.jpg",
+      "file_path": "2021/06/modern-dining-room-1.jpg",
+      "new_path": "blog/2021/06/modern-dining-room-1.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17152,
+      "post_title": "modern-dining-room",
+      "slug": "modern-dining-room-3",
+      "post_date": "2021-06-20T05:28:00.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/modern-dining-room.jpg",
+      "file_path": "2021/06/modern-dining-room.jpg",
+      "new_path": "blog/2021/06/modern-dining-room-3.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17149,
+      "post_title": "contemporary",
+      "slug": "contemporary-15",
+      "post_date": "2021-06-20T05:27:41.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/contemporary.jpg",
+      "file_path": "2021/06/contemporary.jpg",
+      "new_path": "blog/2021/06/contemporary-15.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17148,
+      "post_title": "landscape-1",
+      "slug": "landscape-1-11",
+      "post_date": "2021-06-20T05:27:41.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/landscape-1.jpg",
+      "file_path": "2021/06/landscape-1.jpg",
+      "new_path": "blog/2021/06/landscape-1-11.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17147,
+      "post_title": "landscape",
+      "slug": "landscape-16",
+      "post_date": "2021-06-20T05:27:38.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/landscape.jpg",
+      "file_path": "2021/06/landscape.jpg",
+      "new_path": "blog/2021/06/landscape-16.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17142,
+      "post_title": "traditional-shed-1",
+      "slug": "traditional-shed-1",
+      "post_date": "2021-06-19T05:16:51.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/traditional-shed-1.jpg",
+      "file_path": "2021/06/traditional-shed-1.jpg",
+      "new_path": "blog/2021/06/traditional-shed-1.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17141,
+      "post_title": "traditional-shed",
+      "slug": "traditional-shed-3",
+      "post_date": "2021-06-19T05:16:50.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/traditional-shed.jpg",
+      "file_path": "2021/06/traditional-shed.jpg",
+      "new_path": "blog/2021/06/traditional-shed-3.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17140,
+      "post_title": "contemporary-landscape-3",
+      "slug": "contemporary-landscape-3-9",
+      "post_date": "2021-06-19T05:16:50.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/contemporary-landscape-3.jpg",
+      "file_path": "2021/06/contemporary-landscape-3.jpg",
+      "new_path": "blog/2021/06/contemporary-landscape-3-9.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17137,
+      "post_title": "farmhouse-living-room-1",
+      "slug": "farmhouse-living-room-1-4",
+      "post_date": "2021-06-19T05:16:49.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/farmhouse-living-room-1.jpg",
+      "file_path": "2021/06/farmhouse-living-room-1.jpg",
+      "new_path": "blog/2021/06/farmhouse-living-room-1-4.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17136,
+      "post_title": "beach-style-living-room",
+      "slug": "beach-style-living-room-11",
+      "post_date": "2021-06-19T05:16:49.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/beach-style-living-room.jpg",
+      "file_path": "2021/06/beach-style-living-room.jpg",
+      "new_path": "blog/2021/06/beach-style-living-room-11.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17135,
+      "post_title": "farmhouse-living-room",
+      "slug": "farmhouse-living-room-8",
+      "post_date": "2021-06-19T05:16:48.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/farmhouse-living-room.jpg",
+      "file_path": "2021/06/farmhouse-living-room.jpg",
+      "new_path": "blog/2021/06/farmhouse-living-room-8.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17132,
+      "post_title": "transitional-bathroom-1",
+      "slug": "transitional-bathroom-1-14",
+      "post_date": "2021-06-18T05:03:06.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/transitional-bathroom-1.jpg",
+      "file_path": "2021/06/transitional-bathroom-1.jpg",
+      "new_path": "blog/2021/06/transitional-bathroom-1-14.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17131,
+      "post_title": "beach-style-bathroom",
+      "slug": "beach-style-bathroom-10",
+      "post_date": "2021-06-18T05:03:06.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/beach-style-bathroom.jpg",
+      "file_path": "2021/06/beach-style-bathroom.jpg",
+      "new_path": "blog/2021/06/beach-style-bathroom-10.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17128,
+      "post_title": "traditional-kitchen-1",
+      "slug": "traditional-kitchen-1-11",
+      "post_date": "2021-06-18T05:03:05.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/traditional-kitchen-1.jpg",
+      "file_path": "2021/06/traditional-kitchen-1.jpg",
+      "new_path": "blog/2021/06/traditional-kitchen-1-11.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17127,
+      "post_title": "home-design-15",
+      "slug": "home-design-15-14",
+      "post_date": "2021-06-18T05:03:05.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/home-design-15.jpg",
+      "file_path": "2021/06/home-design-15.jpg",
+      "new_path": "blog/2021/06/home-design-15-14.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17124,
+      "post_title": "french-country-landscape",
+      "slug": "french-country-landscape-2",
+      "post_date": "2021-06-17T04:54:06.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/french-country-landscape.jpg",
+      "file_path": "2021/06/french-country-landscape.jpg",
+      "new_path": "blog/2021/06/french-country-landscape-2.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17123,
+      "post_title": "rustic-patio",
+      "slug": "rustic-patio-7",
+      "post_date": "2021-06-17T04:54:05.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/rustic-patio.jpg",
+      "file_path": "2021/06/rustic-patio.jpg",
+      "new_path": "blog/2021/06/rustic-patio-7.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17122,
+      "post_title": "farmhouse-patio",
+      "slug": "farmhouse-patio-7",
+      "post_date": "2021-06-17T04:54:05.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/farmhouse-patio.jpg",
+      "file_path": "2021/06/farmhouse-patio.jpg",
+      "new_path": "blog/2021/06/farmhouse-patio-7.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17119,
+      "post_title": "transitional-porch",
+      "slug": "transitional-porch-3",
+      "post_date": "2021-06-17T04:54:05.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/transitional-porch.jpg",
+      "file_path": "2021/06/transitional-porch.jpg",
+      "new_path": "blog/2021/06/transitional-porch-3.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17118,
+      "post_title": "contemporary-living-room",
+      "slug": "contemporary-living-room-20",
+      "post_date": "2021-06-17T04:54:04.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/contemporary-living-room.jpg",
+      "file_path": "2021/06/contemporary-living-room.jpg",
+      "new_path": "blog/2021/06/contemporary-living-room-20.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17117,
+      "post_title": "traditional-kitchen",
+      "slug": "traditional-kitchen-18",
+      "post_date": "2021-06-17T04:54:03.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/traditional-kitchen.jpg",
+      "file_path": "2021/06/traditional-kitchen.jpg",
+      "new_path": "blog/2021/06/traditional-kitchen-18.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17114,
+      "post_title": "beach-style-bedroom-1",
+      "slug": "beach-style-bedroom-1-5",
+      "post_date": "2021-06-16T04:44:31.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/beach-style-bedroom-1.jpg",
+      "file_path": "2021/06/beach-style-bedroom-1.jpg",
+      "new_path": "blog/2021/06/beach-style-bedroom-1-5.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17113,
+      "post_title": "traditional-dining-room-3",
+      "slug": "traditional-dining-room-3-2",
+      "post_date": "2021-06-16T04:44:31.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/traditional-dining-room-3.jpg",
+      "file_path": "2021/06/traditional-dining-room-3.jpg",
+      "new_path": "blog/2021/06/traditional-dining-room-3-2.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17112,
+      "post_title": "farmhouse-entry",
+      "slug": "farmhouse-entry-7",
+      "post_date": "2021-06-16T04:44:30.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/farmhouse-entry.jpg",
+      "file_path": "2021/06/farmhouse-entry.jpg",
+      "new_path": "blog/2021/06/farmhouse-entry-7.jpg",
+      "status": "success"
+    },
+    {
+      "ID": 17109,
+      "post_title": "kitchen-2",
+      "slug": "kitchen-2-5",
+      "post_date": "2021-06-16T04:44:29.000Z",
+      "url": "https://askforvirginia.com/wp-content/uploads/2021/06/kitchen-2.jpg",
+      "file_path": "2021/06/kitchen-2.jpg",
+      "new_path": "blog/2021/06/kitchen-2-5.jpg",
+      "status": "success"
+    }
+  ],
+  "failed_files": [],
+  "upload_directory": "/var/www/vhosts/askforvirginia.com/dev2.askforvirginia.com/apps/web/public/uploads"
+}

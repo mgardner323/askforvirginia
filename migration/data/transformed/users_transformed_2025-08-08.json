@@ -1,0 +1,32 @@
+[
+  {
+    "wp_id": 1,
+    "email": "admin@askforvirginia.com",
+    "password": "$2b$12$placeholder.hash.will.need.reset",
+    "profile": {
+      "first_name": "mgardner",
+      "last_name": "User",
+      "phone": "",
+      "bio": "",
+      "avatar": "",
+      "website": "",
+      "specializations": [],
+      "areas_served": [],
+      "license_number": ""
+    },
+    "preferences": {
+      "property_types": [],
+      "price_range": {},
+      "locations": [],
+      "email_notifications": true
+    },
+    "saved_properties": [],
+    "saved_searches": [],
+    "role": "client",
+    "is_verified": true,
+    "is_active": true,
+    "last_login": null,
+    "created_at": "2020-05-10T15:17:37.000Z",
+    "updated_at": "2025-08-08T02:27:54.632Z"
+  }
+]

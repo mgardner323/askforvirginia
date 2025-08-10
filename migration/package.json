@@ -1,0 +1,16 @@
+{
+  "name": "migration",
+  "version": "1.0.0",
+  "description": "This directory contains tools and scripts for migrating content from the existing WordPress site to the new MariaDB-based system.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "mysql2": "^3.14.3"
+  }
+}

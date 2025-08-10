@@ -1,0 +1,810 @@
+import { Client } from '@elastic/elasticsearch';
+import { Property, BlogPost, User, MarketReport } from '../models';
+import { Op, Sequelize } from 'sequelize';
+import { cacheService } from './CacheService';
+import { analyticsService } from './AnalyticsService';
+
+interface SearchResult {
+  type: 'property' | 'blog' | 'market' | 'user';
+  id: number;
+  title: string;
+  description: string;
+  url: string;
+  score: number;
+  highlights?: string[];
+  metadata?: Record<string, any>;
+}
+
+interface SearchOptions {
+  query: string;
+  type?: 'property' | 'blog' | 'market' | 'user' | 'all';
+  filters?: Record<string, any>;
+  limit?: number;
+  offset?: number;
+  sortBy?: 'relevance' | 'date' | 'price' | 'title';
+  sortOrder?: 'asc' | 'desc';
+  includeHighlights?: boolean;
+  fuzzy?: boolean;
+  userId?: number;
+}
+
+interface SearchResponse {
+  results: SearchResult[];
+  total: number;
+  took: number;
+  query: string;
+  suggestions?: string[];
+  facets?: Record<string, Array<{ value: string; count: number }>>;
+}
+
+interface SearchIndex {
+  index: string;
+  type: string;
+  body: any;
+}
+
+class SearchService {
+  private elasticsearch?: Client;
+  private isElasticsearchAvailable = false;
+  private indexPrefix = 'virginia_real_estate';
+
+  constructor() {
+    this.initializeElasticsearch();
+  }
+
+  private async initializeElasticsearch() {
+    try {
+      const elasticsearchUrl = process.env.ELASTICSEARCH_URL || 'http://localhost:9200';
+      
+      this.elasticsearch = new Client({
+        node: elasticsearchUrl,
+        auth: process.env.ELASTICSEARCH_AUTH ? {
+          username: process.env.ELASTICSEARCH_USERNAME || 'elastic',
+          password: process.env.ELASTICSEARCH_PASSWORD || ''
+        } : undefined,
+        maxRetries: 3,
+        requestTimeout: 30000,
+        sniffOnStart: false,
+        sniffOnConnectionFault: false
+      });
+
+      // Test connection
+      const health = await this.elasticsearch.cluster.health();
+      this.isElasticsearchAvailable = true;
+      console.log('✅ Elasticsearch connected successfully');
+      
+      // Initialize indexes
+      await this.initializeIndexes();
+    } catch (error) {
+      console.log('⚠️  Elasticsearch not available, falling back to database search:', error.message);
+      this.isElasticsearchAvailable = false;
+    }
+  }
+
+  private async initializeIndexes() {
+    if (!this.elasticsearch || !this.isElasticsearchAvailable) return;
+
+    const indexes = [
+      {
+        index: `${this.indexPrefix}_properties`,
+        body: {
+          mappings: {
+            properties: {
+              title: { type: 'text', analyzer: 'standard' },
+              description: { type: 'text', analyzer: 'standard' },
+              address: {
+                properties: {
+                  street: { type: 'text' },
+                  city: { type: 'keyword' },
+                  state: { type: 'keyword' },
+                  zip_code: { type: 'keyword' }
+                }
+              },
+              price: { type: 'integer' },
+              bedrooms: { type: 'integer' },
+              bathrooms: { type: 'float' },
+              square_feet: { type: 'integer' },
+              property_type: { type: 'keyword' },
+              status: { type: 'keyword' },
+              is_featured: { type: 'boolean' },
+              created_at: { type: 'date' },
+              location: { type: 'geo_point' }
+            }
+          },
+          settings: {
+            analysis: {
+              analyzer: {
+                property_analyzer: {
+                  tokenizer: 'standard',
+                  filter: ['lowercase', 'stop', 'snowball']
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        index: `${this.indexPrefix}_blog`,
+        body: {
+          mappings: {
+            properties: {
+              title: { type: 'text', analyzer: 'standard' },
+              content: { type: 'text', analyzer: 'standard' },
+              excerpt: { type: 'text' },
+              category: { type: 'keyword' },
+              tags: { type: 'keyword' },
+              status: { type: 'keyword' },
+              created_at: { type: 'date' },
+              updated_at: { type: 'date' },
+              author_id: { type: 'integer' }
+            }
+          }
+        }
+      },
+      {
+        index: `${this.indexPrefix}_market`,
+        body: {
+          mappings: {
+            properties: {
+              title: { type: 'text', analyzer: 'standard' },
+              content: { type: 'text', analyzer: 'standard' },
+              area: { type: 'keyword' },
+              report_date: { type: 'date' },
+              metrics: { type: 'object' },
+              created_at: { type: 'date' }
+            }
+          }
+        }
+      }
+    ];
+
+    for (const indexConfig of indexes) {
+      try {
+        const exists = await this.elasticsearch.indices.exists({ index: indexConfig.index });
+        if (!exists) {
+          await this.elasticsearch.indices.create(indexConfig);
+          console.log(`✅ Created Elasticsearch index: ${indexConfig.index}`);
+        }
+      } catch (error) {
+        console.error(`❌ Failed to create index ${indexConfig.index}:`, error);
+      }
+    }
+  }
+
+  /**
+   * Advanced search across all content types
+   */
+  async search(options: SearchOptions): Promise<SearchResponse> {
+    const startTime = Date.now();
+    
+    try {
+      // Track search analytics
+      await this.trackSearch(options);
+
+      let response: SearchResponse;
+
+      if (this.isElasticsearchAvailable) {
+        response = await this.elasticsearchSearch(options);
+      } else {
+        response = await this.databaseSearch(options);
+      }
+
+      response.took = Date.now() - startTime;
+      
+      // Cache popular searches
+      if (options.query.length > 2) {
+        await this.cacheSearchResult(options, response);
+      }
+
+      return response;
+    } catch (error) {
+      console.error('Search error:', error);
+      // Fallback to database search if Elasticsearch fails
+      if (this.isElasticsearchAvailable) {
+        console.log('Falling back to database search...');
+        return this.databaseSearch(options);
+      }
+      throw error;
+    }
+  }
+
+  /**
+   * Elasticsearch-powered search
+   */
+  private async elasticsearchSearch(options: SearchOptions): Promise<SearchResponse> {
+    const { query, type = 'all', limit = 20, offset = 0, filters = {}, includeHighlights = true } = options;
+
+    const searchIndexes = type === 'all' 
+      ? [`${this.indexPrefix}_properties`, `${this.indexPrefix}_blog`, `${this.indexPrefix}_market`]
+      : [`${this.indexPrefix}_${type === 'property' ? 'properties' : type}`];
+
+    const searchBody = {
+      query: {
+        bool: {
+          must: [
+            {
+              multi_match: {
+                query,
+                fields: ['title^3', 'description^2', 'content^2', 'address.street', 'address.city'],
+                type: 'best_fields',
+                fuzziness: options.fuzzy ? 'AUTO' : 0
+              }
+            }
+          ],
+          filter: this.buildElasticsearchFilters(filters, type)
+        }
+      },
+      highlight: includeHighlights ? {
+        fields: {
+          title: {},
+          description: {},
+          content: { fragment_size: 150, number_of_fragments: 3 }
+        }
+      } : undefined,
+      size: limit,
+      from: offset,
+      sort: this.buildElasticsearchSort(options.sortBy, options.sortOrder)
+    };
+
+    const response = await this.elasticsearch!.search({
+      index: searchIndexes,
+      ...searchBody
+    });
+
+    const results: SearchResult[] = (response as any).hits.hits.map((hit: any) => {
+      const source = hit._source;
+      const highlights = hit.highlight ? Object.values(hit.highlight).flat() : [];
+      
+      return {
+        type: this.getTypeFromIndex(hit._index),
+        id: source.id || hit._id,
+        title: source.title,
+        description: source.description || source.excerpt || source.content?.substring(0, 200) + '...',
+        url: this.generateUrl(this.getTypeFromIndex(hit._index), source),
+        score: hit._score,
+        highlights,
+        metadata: source
+      };
+    });
+
+    const suggestions = await this.getSuggestions(query);
+
+    return {
+      results,
+      total: (response as any).hits.total.value,
+      took: (response as any).took,
+      query,
+      suggestions
+    };
+  }
+
+  /**
+   * Database fallback search
+   */
+  private async databaseSearch(options: SearchOptions): Promise<SearchResponse> {
+    const { query, type = 'all', limit = 20, offset = 0, filters = {} } = options;
+    const results: SearchResult[] = [];
+    let total = 0;
+
+    // Search properties
+    if (type === 'all' || type === 'property') {
+      const propertyResults = await this.searchProperties(query, filters, limit, offset);
+      results.push(...propertyResults.results);
+      total += propertyResults.total;
+    }
+
+    // Search blog posts
+    if (type === 'all' || type === 'blog') {
+      const blogResults = await this.searchBlogPosts(query, filters, limit, offset);
+      results.push(...blogResults.results);
+      total += blogResults.total;
+    }
+
+    // Search market reports
+    if (type === 'all' || type === 'market') {
+      const marketResults = await this.searchMarketReports(query, filters, limit, offset);
+      results.push(...marketResults.results);
+      total += marketResults.total;
+    }
+
+    // Sort by relevance (simple scoring based on title matches)
+    results.sort((a, b) => b.score - a.score);
+
+    return {
+      results: results.slice(0, limit),
+      total,
+      took: 0,
+      query,
+      suggestions: await this.getDatabaseSuggestions(query)
+    };
+  }
+
+  /**
+   * Search properties in database
+   */
+  private async searchProperties(query: string, filters: Record<string, any>, limit: number, offset: number) {
+    const whereCondition: any = {
+      [Op.or]: [
+        { '$address.street$': { [Op.iLike]: `%${query}%` } },
+        { '$address.city$': { [Op.iLike]: `%${query}%` } },
+        { description: { [Op.iLike]: `%${query}%` } }
+      ]
+    };
+
+    // Apply filters
+    if (filters.priceMin) whereCondition['$property_details.price$'] = { [Op.gte]: filters.priceMin };
+    if (filters.priceMax) {
+      whereCondition['$property_details.price$'] = {
+        ...whereCondition['$property_details.price$'],
+        [Op.lte]: filters.priceMax
+      };
+    }
+    if (filters.bedrooms) whereCondition['$property_details.bedrooms$'] = { [Op.gte]: filters.bedrooms };
+    if (filters.bathrooms) whereCondition['$property_details.bathrooms$'] = { [Op.gte]: filters.bathrooms };
+    if (filters.propertyType) whereCondition['$property_details.type$'] = filters.propertyType;
+    if (filters.city) whereCondition['$address.city$'] = filters.city;
+
+    const properties = await Property.findAndCountAll({
+      where: whereCondition,
+      limit,
+      offset,
+      order: [['created_at', 'DESC']]
+    });
+
+    const results: SearchResult[] = properties.rows.map(property => ({
+      type: 'property' as const,
+      id: property.id,
+      title: `${property.address?.street}, ${property.address?.city}`,
+      description: property.description || 'Property listing',
+      url: `/properties/${property.id}`,
+      score: this.calculateRelevanceScore(query, [
+        property.address?.street || '',
+        property.address?.city || '',
+        property.description || ''
+      ]),
+      metadata: {
+        price: property.property_details?.price,
+        bedrooms: property.property_details?.bedrooms,
+        bathrooms: property.property_details?.bathrooms,
+        type: property.property_details?.type
+      }
+    }));
+
+    return { results, total: properties.count };
+  }
+
+  /**
+   * Search blog posts in database
+   */
+  private async searchBlogPosts(query: string, filters: Record<string, any>, limit: number, offset: number) {
+    const whereCondition: any = {
+      [Op.and]: [
+        { status: 'published' },
+        {
+          [Op.or]: [
+            { title: { [Op.iLike]: `%${query}%` } },
+            { content: { [Op.iLike]: `%${query}%` } },
+            { excerpt: { [Op.iLike]: `%${query}%` } }
+          ]
+        }
+      ]
+    };
+
+    if (filters.category) whereCondition[Op.and].push({ category: filters.category });
+    if (filters.author) whereCondition[Op.and].push({ author_id: filters.author });
+
+    const posts = await BlogPost.findAndCountAll({
+      where: whereCondition,
+      limit,
+      offset,
+      order: [['created_at', 'DESC']],
+      include: [{ model: User, as: 'author', attributes: ['email'] }]
+    });
+
+    const results: SearchResult[] = posts.rows.map(post => ({
+      type: 'blog' as const,
+      id: post.id,
+      title: post.title,
+      description: post.excerpt || post.content.substring(0, 200) + '...',
+      url: `/blog/${post.slug}`,
+      score: this.calculateRelevanceScore(query, [post.title, post.content, post.excerpt || '']),
+      metadata: {
+        category: post.category,
+        author: (post as any).author?.email,
+        createdAt: post.created_at
+      }
+    }));
+
+    return { results, total: posts.count };
+  }
+
+  /**
+   * Search market reports in database
+   */
+  private async searchMarketReports(query: string, filters: Record<string, any>, limit: number, offset: number) {
+    const whereCondition: any = {
+      [Op.or]: [
+        { area: { [Op.iLike]: `%${query}%` } },
+        { insights: { [Op.iLike]: `%${query}%` } }
+      ]
+    };
+
+    if (filters.area) whereCondition[Op.and] = [{ area: filters.area }];
+
+    const reports = await MarketReport.findAndCountAll({
+      where: whereCondition,
+      limit,
+      offset,
+      order: [['report_date', 'DESC']]
+    });
+
+    const results: SearchResult[] = reports.rows.map(report => ({
+      type: 'market' as const,
+      id: report.id,
+      title: `${report.area} Market Report`,
+      description: report.insights.substring(0, 200) + '...',
+      url: `/market/${report.seo.slug}`,
+      score: this.calculateRelevanceScore(query, [report.area, report.insights]),
+      metadata: {
+        area: report.area,
+        reportDate: report.report_date
+      }
+    }));
+
+    return { results, total: reports.count };
+  }
+
+  /**
+   * Get search suggestions
+   */
+  async getSuggestions(query: string): Promise<string[]> {
+    if (this.isElasticsearchAvailable && this.elasticsearch) {
+      return this.getElasticsearchSuggestions(query);
+    }
+    return this.getDatabaseSuggestions(query);
+  }
+
+  private async getElasticsearchSuggestions(query: string): Promise<string[]> {
+    try {
+      const response = await this.elasticsearch!.search({
+        index: `${this.indexPrefix}_*`,
+        suggest: {
+          title_suggest: {
+            text: query,
+            term: {
+              field: 'title',
+              size: 5
+            }
+          }
+        },
+        size: 0
+      });
+
+      return (response as any).suggest.title_suggest[0]?.options?.map((option: any) => option.text) || [];
+    } catch (error) {
+      console.error('Elasticsearch suggestions error:', error);
+      return [];
+    }
+  }
+
+  private async getDatabaseSuggestions(query: string): Promise<string[]> {
+    const cached = await cacheService.get<string[]>(`search:suggestions:${query.toLowerCase()}`);
+    if (cached) return cached;
+
+    const suggestions: string[] = [];
+
+    // Get suggestions from properties
+    const properties = await Property.findAll({
+      where: {
+        [Op.or]: [
+          { '$address.city$': { [Op.iLike]: `%${query}%` } },
+          { '$address.street$': { [Op.iLike]: `${query}%` } }
+        ]
+      },
+      limit: 5,
+      attributes: ['address']
+    });
+
+    properties.forEach(property => {
+      if (property.address?.city && !suggestions.includes(property.address.city)) {
+        suggestions.push(property.address.city);
+      }
+    });
+
+    // Cache suggestions
+    await cacheService.set(`search:suggestions:${query.toLowerCase()}`, suggestions, { ttl: 300 });
+
+    return suggestions;
+  }
+
+  /**
+   * Index document in Elasticsearch
+   */
+  async indexDocument(type: 'property' | 'blog' | 'market', id: number, document: any): Promise<void> {
+    if (!this.isElasticsearchAvailable || !this.elasticsearch) return;
+
+    try {
+      const index = `${this.indexPrefix}_${type === 'property' ? 'properties' : type}`;
+      
+      await this.elasticsearch.index({
+        index,
+        id: id.toString(),
+        body: document
+      });
+
+      console.log(`✅ Indexed ${type} document #${id}`);
+    } catch (error) {
+      console.error(`❌ Failed to index ${type} document #${id}:`, error);
+    }
+  }
+
+  /**
+   * Delete document from Elasticsearch
+   */
+  async deleteDocument(type: 'property' | 'blog' | 'market', id: number): Promise<void> {
+    if (!this.isElasticsearchAvailable || !this.elasticsearch) return;
+
+    try {
+      const index = `${this.indexPrefix}_${type === 'property' ? 'properties' : type}`;
+      
+      await this.elasticsearch.delete({
+        index,
+        id: id.toString()
+      });
+
+      console.log(`✅ Deleted ${type} document #${id} from index`);
+    } catch (error) {
+      console.error(`❌ Failed to delete ${type} document #${id}:`, error);
+    }
+  }
+
+  /**
+   * Bulk reindex all content
+   */
+  async reindexAll(): Promise<void> {
+    if (!this.isElasticsearchAvailable) {
+      console.log('Elasticsearch not available, skipping reindexing');
+      return;
+    }
+
+    console.log('🔄 Starting full reindexing...');
+
+    try {
+      // Reindex properties
+      await this.reindexProperties();
+      
+      // Reindex blog posts
+      await this.reindexBlogPosts();
+      
+      // Reindex market reports
+      await this.reindexMarketReports();
+
+      console.log('✅ Full reindexing completed successfully');
+    } catch (error) {
+      console.error('❌ Reindexing failed:', error);
+      throw error;
+    }
+  }
+
+  private async reindexProperties(): Promise<void> {
+    const properties = await Property.findAll();
+    
+    for (const property of properties) {
+      await this.indexDocument('property', property.id, {
+        title: `${property.address?.street}, ${property.address?.city}`,
+        description: property.description,
+        address: property.address,
+        price: property.property_details?.price,
+        bedrooms: property.property_details?.bedrooms,
+        bathrooms: property.property_details?.bathrooms,
+        square_feet: property.property_details?.square_feet,
+        property_type: property.property_details?.type,
+        status: property.property_details?.status,
+        is_featured: property.is_featured,
+        created_at: property.created_at,
+        location: property.address?.coordinates ? {
+          lat: property.address.coordinates.lat,
+          lon: property.address.coordinates.lng
+        } : null
+      });
+    }
+
+    console.log(`✅ Reindexed ${properties.length} properties`);
+  }
+
+  private async reindexBlogPosts(): Promise<void> {
+    const posts = await BlogPost.findAll({ where: { status: 'published' } });
+    
+    for (const post of posts) {
+      await this.indexDocument('blog', post.id, {
+        title: post.title,
+        content: post.content,
+        excerpt: post.excerpt,
+        category: post.category,
+        tags: post.tags,
+        status: post.status,
+        created_at: post.created_at,
+        updated_at: post.updated_at,
+        author_id: post.author_id
+      });
+    }
+
+    console.log(`✅ Reindexed ${posts.length} blog posts`);
+  }
+
+  private async reindexMarketReports(): Promise<void> {
+    const reports = await MarketReport.findAll();
+    
+    for (const report of reports) {
+      await this.indexDocument('market', report.id, {
+        title: `${report.area} Market Report`,
+        content: report.insights,
+        area: report.area,
+        report_date: report.report_date,
+        metrics: report.metrics,
+        created_at: report.created_at
+      });
+    }
+
+    console.log(`✅ Reindexed ${reports.length} market reports`);
+  }
+
+  // Helper methods
+  private buildElasticsearchFilters(filters: Record<string, any>, type: string) {
+    const filterClauses = [];
+
+    if (type === 'property' || type === 'all') {
+      if (filters.priceMin || filters.priceMax) {
+        const priceFilter: any = {};
+        if (filters.priceMin) priceFilter.gte = filters.priceMin;
+        if (filters.priceMax) priceFilter.lte = filters.priceMax;
+        filterClauses.push({ range: { price: priceFilter } });
+      }
+
+      if (filters.bedrooms) {
+        filterClauses.push({ range: { bedrooms: { gte: filters.bedrooms } } });
+      }
+
+      if (filters.propertyType) {
+        filterClauses.push({ term: { property_type: filters.propertyType } });
+      }
+
+      if (filters.city) {
+        filterClauses.push({ term: { 'address.city': filters.city } });
+      }
+    }
+
+    if (type === 'blog' || type === 'all') {
+      if (filters.category) {
+        filterClauses.push({ term: { category: filters.category } });
+      }
+    }
+
+    if (type === 'market' || type === 'all') {
+      if (filters.area) {
+        filterClauses.push({ term: { area: filters.area } });
+      }
+    }
+
+    return filterClauses;
+  }
+
+  private buildElasticsearchSort(sortBy?: string, sortOrder: 'asc' | 'desc' = 'desc') {
+    const sortMap: Record<string, string> = {
+      date: 'created_at',
+      price: 'price',
+      title: 'title.keyword',
+      relevance: '_score'
+    };
+
+    const field = sortMap[sortBy || 'relevance'] || '_score';
+    
+    if (field === '_score') {
+      return [{ [field]: { order: 'desc' } }];
+    }
+
+    return [{ [field]: { order: sortOrder } }];
+  }
+
+  private getTypeFromIndex(index: string): 'property' | 'blog' | 'market' {
+    if (index.includes('properties')) return 'property';
+    if (index.includes('blog')) return 'blog';
+    return 'market';
+  }
+
+  private generateUrl(type: string, source: any): string {
+    switch (type) {
+      case 'property':
+        return `/properties/${source.id}`;
+      case 'blog':
+        return `/blog/${source.slug || source.id}`;
+      case 'market':
+        return `/market/${source.slug || source.id}`;
+      default:
+        return '#';
+    }
+  }
+
+  private calculateRelevanceScore(query: string, fields: string[]): number {
+    const queryLower = query.toLowerCase();
+    let score = 0;
+
+    fields.forEach((field, index) => {
+      const fieldLower = field.toLowerCase();
+      const weight = index === 0 ? 3 : index === 1 ? 2 : 1; // Title gets higher weight
+
+      if (fieldLower.includes(queryLower)) {
+        const position = fieldLower.indexOf(queryLower);
+        const exactMatch = fieldLower === queryLower ? 10 : 0;
+        const startsWithMatch = position === 0 ? 5 : 0;
+        const containsMatch = 1;
+
+        score += (exactMatch + startsWithMatch + containsMatch) * weight;
+      }
+    });
+
+    return score;
+  }
+
+  private async trackSearch(options: SearchOptions): Promise<void> {
+    try {
+      await analyticsService.trackSearch(
+        options.query,
+        options.filters || {},
+        0, // Will be updated with actual results count
+        options.userId
+      );
+    } catch (error) {
+      console.error('Failed to track search:', error);
+    }
+  }
+
+  private async cacheSearchResult(options: SearchOptions, response: SearchResponse): Promise<void> {
+    try {
+      const cacheKey = `search:${options.query}:${JSON.stringify(options.filters)}`;
+      await cacheService.set(cacheKey, response, { ttl: 300 }); // Cache for 5 minutes
+    } catch (error) {
+      console.error('Failed to cache search result:', error);
+    }
+  }
+
+  /**
+   * Get search analytics
+   */
+  async getSearchAnalytics() {
+    try {
+      const cached = await cacheService.get('search:analytics');
+      if (cached) return cached;
+
+      // This would typically come from a dedicated analytics store
+      // For now, we'll return mock data
+      const analytics = {
+        popularQueries: [
+          { query: 'homes for sale', count: 150, avgResults: 45 },
+          { query: 'Beverly Hills', count: 89, avgResults: 12 },
+          { query: 'condos', count: 67, avgResults: 23 },
+          { query: 'luxury homes', count: 54, avgResults: 8 },
+          { query: 'investment property', count: 41, avgResults: 19 }
+        ],
+        noResultQueries: [
+          { query: 'castle', count: 5 },
+          { query: 'beachfront mansion under 100k', count: 3 },
+          { query: 'time machine', count: 2 }
+        ],
+        avgResponseTime: 45,
+        totalSearches: 1250,
+        successRate: 94.5
+      };
+
+      await cacheService.set('search:analytics', analytics, { ttl: 600 });
+      return analytics;
+    } catch (error) {
+      console.error('Failed to get search analytics:', error);
+      return null;
+    }
+  }
+}
+
+// Singleton instance
+export const searchService = new SearchService();
+export default searchService;

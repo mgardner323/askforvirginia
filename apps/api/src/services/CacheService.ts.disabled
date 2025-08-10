@@ -1,0 +1,345 @@
+import Redis from 'ioredis';
+import { credentialsService } from './CredentialsService';
+
+interface CacheOptions {
+  ttl?: number; // Time to live in seconds
+  prefix?: string;
+  compress?: boolean;
+}
+
+interface CacheStats {
+  hits: number;
+  misses: number;
+  hitRate: number;
+  totalRequests: number;
+  memoryUsage: number;
+}
+
+export class CacheService {
+  private redis: Redis | null = null;
+  private stats = {
+    hits: 0,
+    misses: 0
+  };
+  private isInitialized = false;
+
+  constructor() {
+    this.initializeRedis();
+  }
+
+  private async initializeRedis(): Promise<void> {
+    try {
+      // Try to get Redis credentials from database
+      const redisCredential = await credentialsService.getCredentialsByService('redis');
+      
+      if (redisCredential?.credentials) {
+        const { host, port, password } = redisCredential.credentials;
+        this.redis = new Redis({
+          host: host || 'localhost',
+          port: port || 6379,
+          password: password || undefined,
+          retryDelayOnFailover: 100,
+          maxRetriesPerRequest: 3,
+          lazyConnect: true,
+        });
+
+        this.redis.on('connect', () => {
+          console.log('✅ Redis cache connected successfully');
+          this.isInitialized = true;
+        });
+
+        this.redis.on('error', (error) => {
+          console.error('❌ Redis cache error:', error);
+          this.redis = null;
+          this.isInitialized = false;
+        });
+
+        // Test connection
+        await this.redis.ping();
+      } else {
+        console.log('⚠️ Redis credentials not found, using in-memory cache fallback');
+        this.setupMemoryCache();
+      }
+    } catch (error) {
+      console.warn('⚠️ Redis connection failed, using in-memory cache:', error);
+      this.setupMemoryCache();
+    }
+  }
+
+  private setupMemoryCache(): void {
+    // In-memory cache fallback using Map with TTL
+    const memoryCache = new Map<string, { data: any; expires: number }>();
+    
+    this.redis = {
+      get: async (key: string) => {
+        const item = memoryCache.get(key);
+        if (item && item.expires > Date.now()) {
+          return JSON.stringify(item.data);
+        }
+        if (item) memoryCache.delete(key);
+        return null;
+      },
+      set: async (key: string, value: string, mode?: string, duration?: number) => {
+        const ttl = duration || 300; // 5 minutes default
+        memoryCache.set(key, {
+          data: JSON.parse(value),
+          expires: Date.now() + (ttl * 1000)
+        });
+        return 'OK';
+      },
+      del: async (key: string) => {
+        memoryCache.delete(key);
+        return 1;
+      },
+      flushall: async () => {
+        memoryCache.clear();
+        return 'OK';
+      },
+      keys: async (pattern: string) => {
+        return Array.from(memoryCache.keys()).filter(key => 
+          pattern === '*' || key.includes(pattern.replace('*', ''))
+        );
+      }
+    } as any;
+
+    this.isInitialized = true;
+    console.log('✅ In-memory cache fallback initialized');
+  }
+
+  /**
+   * Get cached data by key
+   */
+  async get<T>(key: string, options: CacheOptions = {}): Promise<T | null> {
+    if (!this.isInitialized || !this.redis) {
+      return null;
+    }
+
+    try {
+      const prefixedKey = this.getPrefixedKey(key, options.prefix);
+      const cached = await this.redis.get(prefixedKey);
+      
+      if (cached) {
+        this.stats.hits++;
+        return JSON.parse(cached) as T;
+      } else {
+        this.stats.misses++;
+        return null;
+      }
+    } catch (error) {
+      console.warn('Cache get error:', error);
+      this.stats.misses++;
+      return null;
+    }
+  }
+
+  /**
+   * Set cached data with TTL
+   */
+  async set<T>(key: string, data: T, options: CacheOptions = {}): Promise<boolean> {
+    if (!this.isInitialized || !this.redis) {
+      return false;
+    }
+
+    try {
+      const prefixedKey = this.getPrefixedKey(key, options.prefix);
+      const serialized = JSON.stringify(data);
+      const ttl = options.ttl || 300; // 5 minutes default
+
+      await this.redis.set(prefixedKey, serialized, 'EX', ttl);
+      return true;
+    } catch (error) {
+      console.warn('Cache set error:', error);
+      return false;
+    }
+  }
+
+  /**
+   * Delete cached data
+   */
+  async del(key: string, options: CacheOptions = {}): Promise<boolean> {
+    if (!this.isInitialized || !this.redis) {
+      return false;
+    }
+
+    try {
+      const prefixedKey = this.getPrefixedKey(key, options.prefix);
+      await this.redis.del(prefixedKey);
+      return true;
+    } catch (error) {
+      console.warn('Cache delete error:', error);
+      return false;
+    }
+  }
+
+  /**
+   * Clear all cache or by pattern
+   */
+  async clear(pattern?: string): Promise<boolean> {
+    if (!this.isInitialized || !this.redis) {
+      return false;
+    }
+
+    try {
+      if (pattern) {
+        const keys = await this.redis.keys(pattern);
+        if (keys.length > 0) {
+          await this.redis.del(...keys);
+        }
+      } else {
+        await this.redis.flushall();
+      }
+      return true;
+    } catch (error) {
+      console.warn('Cache clear error:', error);
+      return false;
+    }
+  }
+
+  /**
+   * Get cache statistics
+   */
+  async getStats(): Promise<CacheStats> {
+    const totalRequests = this.stats.hits + this.stats.misses;
+    const hitRate = totalRequests > 0 ? (this.stats.hits / totalRequests) * 100 : 0;
+
+    let memoryUsage = 0;
+    try {
+      if (this.redis && this.isInitialized) {
+        const info = await this.redis.memory('usage', 'temp-key');
+        memoryUsage = parseInt(info as string) || 0;
+      }
+    } catch (error) {
+      // Memory usage not available
+    }
+
+    return {
+      hits: this.stats.hits,
+      misses: this.stats.misses,
+      hitRate: Math.round(hitRate * 100) / 100,
+      totalRequests,
+      memoryUsage
+    };
+  }
+
+  /**
+   * Cache middleware for API endpoints
+   */
+  middleware(ttl: number = 300, keyGenerator?: (req: any) => string) {
+    return async (req: any, res: any, next: any) => {
+      // Skip caching for non-GET requests
+      if (req.method !== 'GET') {
+        return next();
+      }
+
+      const cacheKey = keyGenerator ? keyGenerator(req) : this.generateCacheKey(req);
+      
+      try {
+        const cached = await this.get(cacheKey);
+        if (cached) {
+          res.set('X-Cache', 'HIT');
+          return res.json(cached);
+        }
+
+        // Store original json method
+        const originalJson = res.json;
+        
+        // Override json method to cache response
+        res.json = (data: any) => {
+          res.set('X-Cache', 'MISS');
+          this.set(cacheKey, data, { ttl });
+          return originalJson.call(res, data);
+        };
+
+        next();
+      } catch (error) {
+        console.warn('Cache middleware error:', error);
+        next();
+      }
+    };
+  }
+
+  /**
+   * Cache warming for frequently accessed data
+   */
+  async warmCache(): Promise<void> {
+    console.log('🔥 Starting cache warming...');
+    
+    // Warm frequently accessed endpoints
+    const warmingTasks = [
+      this.warmPropertiesCache(),
+      this.warmBlogCache(),
+      this.warmMarketDataCache(),
+      this.warmUserDashboardCache()
+    ];
+
+    try {
+      await Promise.all(warmingTasks);
+      console.log('✅ Cache warming completed successfully');
+    } catch (error) {
+      console.error('❌ Cache warming failed:', error);
+    }
+  }
+
+  private async warmPropertiesCache(): Promise<void> {
+    // This would call your property API to cache featured properties
+    // await this.set('properties:featured', featuredProperties, { ttl: 600 });
+  }
+
+  private async warmBlogCache(): Promise<void> {
+    // This would call your blog API to cache recent posts
+    // await this.set('blog:recent', recentPosts, { ttl: 300 });
+  }
+
+  private async warmMarketDataCache(): Promise<void> {
+    // This would call your market data API
+    // await this.set('market:insights', marketInsights, { ttl: 900 });
+  }
+
+  private async warmUserDashboardCache(): Promise<void> {
+    // This would cache common dashboard data
+    // await this.set('dashboard:stats', dashboardStats, { ttl: 180 });
+  }
+
+  private getPrefixedKey(key: string, prefix?: string): string {
+    const defaultPrefix = process.env.NODE_ENV === 'production' ? 'prod:' : 'dev:';
+    return `${prefix || defaultPrefix}${key}`;
+  }
+
+  private generateCacheKey(req: any): string {
+    const { method, originalUrl, user } = req;
+    const userKey = user?.id || 'anonymous';
+    return `api:${method}:${originalUrl}:${userKey}`;
+  }
+
+  /**
+   * Cache helper for database queries
+   */
+  async cacheQuery<T>(
+    key: string,
+    queryFn: () => Promise<T>,
+    options: CacheOptions = {}
+  ): Promise<T> {
+    // Try to get from cache first
+    const cached = await this.get<T>(key, options);
+    if (cached !== null) {
+      return cached;
+    }
+
+    // Execute query and cache result
+    const result = await queryFn();
+    await this.set(key, result, options);
+    return result;
+  }
+
+  /**
+   * Invalidate related cache entries
+   */
+  async invalidatePattern(pattern: string): Promise<void> {
+    await this.clear(pattern);
+    console.log(`🗑️ Invalidated cache pattern: ${pattern}`);
+  }
+}
+
+// Singleton instance
+export const cacheService = new CacheService();
+export default cacheService;

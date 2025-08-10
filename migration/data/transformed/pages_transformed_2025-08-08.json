@@ -1,0 +1,291 @@
+[
+  {
+    "wp_id": 18118,
+    "title": "hub",
+    "content": "",
+    "slug": "hub",
+    "type": "page",
+    "template": "standard",
+    "author_id": 1,
+    "meta": {
+      "seo_title": "hub",
+      "seo_description": "",
+      "parent_page": null
+    },
+    "published_at": "2022-03-16T03:24:11.000Z",
+    "created_at": "2022-03-16T03:24:11.000Z",
+    "updated_at": "2022-03-16T03:24:11.000Z"
+  },
+  {
+    "wp_id": 12550,
+    "title": "New Listings",
+    "content": "<iframe src=\"https://matrix.crmls.org/Matrix/public/IDX.aspx?idx=12c32074\" width=\"100%\" height=\"700\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\"></iframe>When I joined SCG (Spectrum Capital Group), another acronym to express my heart - Serving Christ Graciously, a gentle reminder that we are to work unto the Lord, as if He is our client, boss, partner and co-worker. Whether you are buying and/or selling, expect exceptional service - response to your concerns, staying ahead of the process, anticipating the next turn, understanding the critical path - sealing the deal as you seal up your moving boxes!I will do a qualified appraisal, suggest quick staging fixes, and quiz you about your financial goals to ensure confidence about the decisions you will soon be required to make as you navigate your quest for a solid future.I have a practical eye, seeing property benefits, potential and possible \"road bumps\". Let me take you on a tour of your next property preview to see if there are any \"blindspots\", so you can buy with confidence.Virginia has a practical eye, seeing property benefits, potential and possible \"road bumps\". Let her take you on a tour of your next property preview to see if there are any \"blindspots\", so you can buy with confidence.askforvirginia.com is an all-in-one real estate site that gives you the local scoop about homes for sale, neighborhood insights, markets and trends to help you figure out exactly what, where, and when to buy, sell.",
+    "slug": "new-listings",
+    "type": "page",
+    "template": "standard",
+    "author_id": 1,
+    "meta": {
+      "seo_title": "New Listings",
+      "seo_description": "[et_pb_section fb_built=\"1\" admin_label=\"Hero section\" _builder_version=\"4.4.8\" background_enable_image=\"off\" background_position=\"top_center\" background_video_...",
+      "parent_page": null
+    },
+    "published_at": "2020-06-26T03:58:40.000Z",
+    "created_at": "2020-06-26T03:58:40.000Z",
+    "updated_at": "2020-06-28T18:03:30.000Z"
+  },
+  {
+    "wp_id": 9,
+    "title": "Properties",
+    "content": "[property_overview]",
+    "slug": "properties",
+    "type": "page",
+    "template": "standard",
+    "author_id": 1,
+    "meta": {
+      "seo_title": "Properties",
+      "seo_description": "[property_overview]",
+      "parent_page": null
+    },
+    "published_at": "2020-05-10T16:01:12.000Z",
+    "created_at": "2020-05-10T16:01:12.000Z",
+    "updated_at": "2020-05-10T16:01:12.000Z"
+  },
+  {
+    "wp_id": 2,
+    "title": "Sample Page",
+    "content": "<!-- wp:paragraph -->\n<p>This is an example page. It's different from a blog post because it will stay in one place and will show up in your site navigation (in most themes). Most people start with an About page that introduces them to potential site visitors. It might say something like this:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:quote -->\n<blockquote class=\"wp-block-quote\"><p>Hi there! I'm a bike messenger by day, aspiring actor by night, and this is my website. I live in Los Angeles, have a great dog named Jack, and I like pi&#241;a coladas. (And gettin' caught in the rain.)</p></blockquote>\n<!-- /wp:quote -->\n\n<!-- wp:paragraph -->\n<p>...or something like this:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:quote -->\n<blockquote class=\"wp-block-quote\"><p>The XYZ Doohickey Company was founded in 1971, and has been providing quality doohickeys to the public ever since. Located in Gotham City, XYZ employs over 2,000 people and does all kinds of awesome things for the Gotham community.</p></blockquote>\n<!-- /wp:quote -->\n\n<!-- wp:paragraph -->\n<p>As a new WordPress user, you should go to <a href=\"https://www.askforvirginia.com/wp-admin/\">your dashboard</a> to delete this page and create new pages for your content. Have fun!</p>\n<!-- /wp:paragraph -->",
+    "slug": "sample-page",
+    "type": "page",
+    "template": "standard",
+    "author_id": 1,
+    "meta": {
+      "seo_title": "Sample Page",
+      "seo_description": "This is an example page. It's different from a blog post because it will stay in one place and will show up in your site navigation (in most themes). Most peopl...",
+      "parent_page": "default"
+    },
+    "published_at": "2020-05-10T15:17:37.000Z",
+    "created_at": "2020-05-10T15:17:37.000Z",
+    "updated_at": "2020-05-10T15:17:37.000Z"
+  },
+  {
+    "wp_id": 6384,
+    "title": "Lifestyle",
+    "content": "<h4><a href=\"https://www.askforvirginia.com/#\"><img src=\"https://www.askforvirginia.com/wp-content/uploads/2018/09/original_11a9d77e46ad41a0449a08c5a0bdc86e-300x189.png\" width=\"300\" height=\"189\" alt=\"\" class=\"wp-image-131 alignnone size-medium\" />Virgina Hodges Schumm</a></h4>\n<p>Call: <span>(951) 453-6122</span><br /> Email: <span>jenny@askforvirginia.com</span></p>\naskforvirginia.com is an all-in-one real estate site that gives you the local scoop about homes for sale, neighborhood insights, markets and trends to help you figure out exactly what, where, and when to buy, sell.",
+    "slug": "lifestyle",
+    "type": "page",
+    "template": "standard",
+    "author_id": 1,
+    "meta": {
+      "seo_title": "Lifestyle",
+      "seo_description": "[et_pb_section fb_built=\"1\" admin_label=\"Hero section\" _builder_version=\"4.16\" background_enable_image=\"off\" background_position=\"top_center\" background_video_m...",
+      "parent_page": null
+    },
+    "published_at": "2019-12-16T15:53:28.000Z",
+    "created_at": "2019-12-16T15:53:28.000Z",
+    "updated_at": "2022-09-21T00:43:21.000Z"
+  },
+  {
+    "wp_id": 4683,
+    "title": "Community Support",
+    "content": "<p>A big part of being part of a community is supporting our local schools and small businesses and Churches.  Below you will see some of those schools and Businesses that we support.</p><p><span>Moreno Valley Women's Health Center is a local health services organization that provides valuable resources to women facing an unplanned pregnancy. We know about local clinics that help provide for your needs. All our services are free and confidential.</span></p>\n<p><span></span></p>\n<div class=\"g-contacts-item\">\n<div class=\"g-title-value-container\">\n<h4 class=\"g-contact-title\">24/7 HOTLINE</h4>\n<div class=\"g-contact-value\">\n<p><span><a href=\"tel:951-616-9619\">(951) 616-9619</a></span></p>\n</div>\n</div>\n</div>\n<div class=\"g-contacts-item\">\n<div class=\"g-contacts-icon\"><span class=\"fa fa-map-marker\"></span></div>\n<div class=\"g-title-value-container\">\n<h4 class=\"g-contact-title\">Address</h4>\n<div class=\"g-contact-value\">\n<div class=\"desktop-title-content\"><a href=\"https://www.google.com/maps/place/12730+Heacock+St+STE+8,+Moreno+Valley,+CA+92553/@33.9356996,-117.2456431,17z/data=!3m1!4b1!4m5!3m4!1s0x80dca6220e49d123:0x30bd67239b1e5ad7!8m2!3d33.9356996!4d-117.2434544\" target=\"_blank\" rel=\"noopener noreferrer\">12730 Heacock St | STE 8</a><br /><a href=\"https://www.google.com/maps/place/12730+Heacock+St+STE+8,+Moreno+Valley,+CA+92553/@33.9356996,-117.2456431,17z/data=!3m1!4b1!4m5!3m4!1s0x80dca6220e49d123:0x30bd67239b1e5ad7!8m2!3d33.9356996!4d-117.2434544\" target=\"_blank\" rel=\"noopener noreferrer\"><span class=\"desktop-title-subcontent\">Moreno Valley, CA 92553</span></a></div>\n</div>\n</div>\n</div>\n<div class=\"g-contacts-item\">\n<div class=\"g-contacts-icon\"><span class=\"fa fa-clock-o\"></span></div>\n<div class=\"g-title-value-container\">\n<h4 class=\"g-contact-title\">Office Hours</h4>\n<div class=\"g-contact-value\">\n<p><a href=\"https://healthcentermv.org/appointment\">Monday | 1:00pm to 5:00pm</a><br /><a href=\"https://healthcentermv.org/appointment\">Tuesday | 1:00pm to 5:00pm</a><br /><a href=\"https://healthcentermv.org/appointment\">Wednesday | 10:00am to 2:00pm</a><br /><a href=\"https://healthcentermv.org/appointment\">Thursday | 12:00pm  to 5:00pm</a><br /><a href=\"https://healthcentermv.org/appointment\">Friday | Closed</a></p>\n</div>\n</div>\n</div><p>The <em>art</em> of <em>storytelling</em> through film.  This is a local bussiness that does photos for us when we need to show off a house and wanted to share there experties with everyone.</p>",
+    "slug": "community-support",
+    "type": "page",
+    "template": "standard",
+    "author_id": 1,
+    "meta": {
+      "seo_title": "Community Support",
+      "seo_description": "[et_pb_section fb_built=\"1\" admin_label=\"Hero section\" _builder_version=\"4.16\" background_enable_image=\"off\" background_position=\"top_center\" background_video_m...",
+      "parent_page": null
+    },
+    "published_at": "2019-10-22T02:41:32.000Z",
+    "created_at": "2019-10-22T02:41:32.000Z",
+    "updated_at": "2022-09-11T23:47:58.000Z"
+  },
+  {
+    "wp_id": 744,
+    "title": "Home Improvement",
+    "content": "<!-- wp:divi/placeholder -->\n<h1>Home Improvment Tips and Tricks</h1><p>Ever want to do home improvment on your house but dont know where to start.Â  Below are some articles that will get you started.</p><a class=\"twitter-timeline\" href=\"https://twitter.com/BudgetDumpster?ref_src=twsrc%5Etfw\">Tweets by BudgetDumpster</a> <script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script><p>Are you ready to buy?Â A Word to the Wise, Virginia shares years of experience with her clients, helpful tips and road maps to success.</p>\n<!-- /wp:divi/placeholder -->",
+    "slug": "744-2",
+    "type": "page",
+    "template": "standard",
+    "author_id": 1,
+    "meta": {
+      "seo_title": "Home Improvement",
+      "seo_description": "[et_pb_section fb_built=\"1\" custom_padding_last_edited=\"on|phone\" admin_label=\"Hero Section\" _builder_version=\"3.22\" use_background_color_gradient=\"on\" backgrou...",
+      "parent_page": null
+    },
+    "published_at": "2019-08-27T13:59:32.000Z",
+    "created_at": "2019-08-27T13:59:32.000Z",
+    "updated_at": "2019-08-27T13:59:32.000Z"
+  },
+  {
+    "wp_id": 703,
+    "title": "Real Estate News",
+    "content": "<h1>Real Estate News</h1>\n<p>Keep up with whats going on in the real estate market.  From home design to market information we have you covered.</p><h4><a href=\"https://www.askforvirginia.com/#\"><img src=\"https://www.askforvirginia.com/wp-content/uploads/2018/09/original_11a9d77e46ad41a0449a08c5a0bdc86e-300x189.png\" width=\"300\" height=\"189\" alt=\"\" class=\"wp-image-131 alignnone size-medium\" />Virgina Hodges Schumm</a></h4>\n<p>Call: <span>(951) 453-6122</span><br /> Email: <span>jenny@askforvirginia.com</span></p>\n<a class=\"twitter-timeline\" href=\"https://twitter.com/nardotrealtor?ref_src=twsrc%5Etfw\">Tweets by nardotrealtor</a> <script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>Are you ready to buy?Â A Word to the Wise, Virginia shares years of experience with her clients, helpful tips and road maps to success.",
+    "slug": "real-estate-news",
+    "type": "page",
+    "template": "standard",
+    "author_id": 1,
+    "meta": {
+      "seo_title": "Real Estate News",
+      "seo_description": "[et_pb_section fb_built=\"1\" admin_label=\"Hero section\" _builder_version=\"4.16\" background_enable_image=\"off\" background_position=\"top_center\" background_video_m...",
+      "parent_page": "default"
+    },
+    "published_at": "2019-05-11T16:25:19.000Z",
+    "created_at": "2019-05-11T16:25:19.000Z",
+    "updated_at": "2022-09-21T00:49:46.000Z"
+  },
+  {
+    "wp_id": 216,
+    "title": "Rent or Buy",
+    "content": "<h1>Rent or Buy</h1>\n<p>Have you ever wondered if you should rent or buy a house.  The Below is a calculator that will help you see the benefits of buying a house.</p><h4><a href=\"https://www.askforvirginia.com/#\"><img src=\"https://www.askforvirginia.com/wp-content/uploads/2018/09/original_11a9d77e46ad41a0449a08c5a0bdc86e-300x189.png\" width=\"300\" height=\"189\" alt=\"\" class=\"wp-image-131 alignnone size-medium\" />Virgina Hodges Schumm</a></h4>\n<p>Call: <span>(951) 453-6122</span><br /> Email: <span>jenny@askforvirginia.com</span></p>\n[advanced_iframe securitykey=”123451234512345” src=”https://www.calculator.net/rent-vs-buy-calculator.html” width=”110%” height=”6000”]Are you ready to buy?Â A Word to the Wise, Virginia shares years of experience with her clients, helpful tips and road maps to success.",
+    "slug": "rent-or-buy",
+    "type": "page",
+    "template": "standard",
+    "author_id": 1,
+    "meta": {
+      "seo_title": "Rent or Buy",
+      "seo_description": "[et_pb_section fb_built=\"1\" admin_label=\"Hero section\" _builder_version=\"4.16\" background_enable_image=\"off\" background_position=\"top_center\" background_video_m...",
+      "parent_page": null
+    },
+    "published_at": "2018-09-29T00:40:56.000Z",
+    "created_at": "2018-09-29T00:40:56.000Z",
+    "updated_at": "2022-09-11T23:35:23.000Z"
+  },
+  {
+    "wp_id": 182,
+    "title": "Properties",
+    "content": "[property_overview]",
+    "slug": "properties-2",
+    "type": "page",
+    "template": "standard",
+    "author_id": 1,
+    "meta": {
+      "seo_title": "Properties",
+      "seo_description": "[property_overview]",
+      "parent_page": null
+    },
+    "published_at": "2018-09-28T22:54:30.000Z",
+    "created_at": "2018-09-28T22:54:30.000Z",
+    "updated_at": "2018-09-28T22:54:30.000Z"
+  },
+  {
+    "wp_id": 179,
+    "title": "Community Reports",
+    "content": "<h1>Community Report</h1>\n<p>Knowing every aspect of the community that you are looking at moving into is very important.Â  Below is a tool that will allow you to look up information about a community.</p><h4><a href=\"https://www.askforvirginia.com/#\"><img src=\"https://www.askforvirginia.com/wp-content/uploads/2018/09/original_11a9d77e46ad41a0449a08c5a0bdc86e-300x189.png\" width=\"300\" height=\"189\" alt=\"\" class=\"wp-image-131 alignnone size-medium\" />Virgina Hodges Schumm</a></h4>\n<p>Call: <span>(951) 453-6122</span><br /> Email: <span>jenny@askforvirginia.com</span></p>\n[advanced_iframe use_shortcode_attributes_only=\"true\" src=\"https://www.rdesk.com/communityinfo/communityreports.aspx\" width=\"100%\" height=\"600\" id=\"advanced_iframe\" ]<p>Are you ready to buy?Â A Word to the Wise, Virginia shares years of experience with her clients, helpful tips and road maps to success.</p>",
+    "slug": "community-report",
+    "type": "page",
+    "template": "standard",
+    "author_id": 1,
+    "meta": {
+      "seo_title": "Community Reports",
+      "seo_description": "[et_pb_section fb_built=\"1\" admin_label=\"Hero section\" _builder_version=\"4.16\" background_enable_image=\"off\" background_position=\"top_center\" background_video_m...",
+      "parent_page": null
+    },
+    "published_at": "2018-09-28T19:10:18.000Z",
+    "created_at": "2018-09-28T19:10:18.000Z",
+    "updated_at": "2022-09-12T00:26:18.000Z"
+  },
+  {
+    "wp_id": 150,
+    "title": "Search",
+    "content": "<h1>Search for the right property</h1>\n<p>Consider this site your property GPS(General Problem Solver!), sharing years of experience, tips to navigate the detours, and a road map to success.\"</p><h4><a href=\"https://www.askforvirginia.com/#\"><img src=\"https://www.askforvirginia.com/wp-content/uploads/2018/09/original_11a9d77e46ad41a0449a08c5a0bdc86e-300x189.png\" width=\"300\" height=\"189\" alt=\"\" class=\"wp-image-131 alignnone size-medium\" />Virgina Hodges Schumm</a></h4>\n<p>Call: <span>(951) 453-6122</span><br /> Email: <span>jenny@askforvirginia.com</span></p>\n<iframe src=\"https://matrix.crmls.org/Matrix/public/IDX.aspx?idx=2c3f2073\" width=\"100%\" height=\"1000\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\"></iframe><p>Are you ready to buy?Â A Word to the Wise, Virginia shares years of experience with her clients, helpful tips and road maps to success.</p>",
+    "slug": "search",
+    "type": "page",
+    "template": "standard",
+    "author_id": 1,
+    "meta": {
+      "seo_title": "Search",
+      "seo_description": "[et_pb_section fb_built=\"1\" admin_label=\"Hero section\" _builder_version=\"4.4.8\" background_enable_image=\"off\" background_position=\"top_center\" background_video_...",
+      "parent_page": null
+    },
+    "published_at": "2018-09-27T14:25:14.000Z",
+    "created_at": "2018-09-27T14:25:14.000Z",
+    "updated_at": "2020-06-28T17:57:10.000Z"
+  },
+  {
+    "wp_id": 112,
+    "title": "The Market",
+    "content": "<h1>The Market</h1>\n<p>\"Route Guidance\"- \"Consider this site your property GPS(General Problem Solver!), sharing years of experience, tips to navigate the detours, and a road map to success.\"</p><h4><a href=\"https://www.askforvirginia.com/#\"><img src=\"https://www.askforvirginia.com/wp-content/uploads/2018/09/original_11a9d77e46ad41a0449a08c5a0bdc86e-300x189.png\" width=\"300\" height=\"189\" alt=\"\" class=\"wp-image-131 alignnone size-medium\" />Virgina Hodges Schumm</a></h4>\n<p>Call: <span>(951) 453-6122</span><br /> Email: <span>jenny@askforvirginia.com</span></p>\n<h2>Featured Listing</h2><iframe src=\"https://altos.re/r/364116a6-d50e-40f2-913a-13681c81d760\" width=\"100%\" height=\"1000\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\"></iframe><iframe src=\"https://matrix.crmls.org/Matrix/public/IDX.aspx?idx=12c32074\" width=\"100%\" height=\"700\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\"></iframe><img src=\"https://www.askforvirginia.com/wp-content/uploads/2018/10/interstate-road-signs-clipart-2.png\" alt=\"\" width=\"276\" height=\"298\" class=\"alignnone size-full wp-image-362\" /><iframe src=\"https://matrix.crmls.org/Matrix/public/IDX.aspx?idx=2c3f2073\" width=\"100%\" height=\"1000\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\"></iframe><img src=\"https://www.askforvirginia.com/wp-content/uploads/2018/10/sign-blank-preprinted-border-k-4726-yl2.png\" alt=\"\" width=\"800\" height=\"800\" class=\"alignnone size-full wp-image-364\" />[mortgagecalculator]<img src=\"https://www.askforvirginia.com/wp-content/uploads/2018/10/Recent-Listings.jpg\" alt=\"\" width=\"640\" height=\"360\" class=\"alignnone size-full wp-image-337\" /><p>Single Family Home</p>\n<h4>$413,000</h4>\n<p>2,528 Sq Ft.  4 Beds  3 Baths</p>\n<p><a href=\"#\">24446 Barley Rd.<br />Moreno Valley 92557<br /></a></p><p>Single Family Home</p>\n<h4>$385,000</h4>\n<p>1,448 Sq Ft.  3 Beds  2 Baths</p>\n<p><a href=\"#\">410 W Campus View Dr.<br />Riverside , CA, 92507<br /></a></p><p>Single Family Home</p>\n<h4>$265,000</h4>\n<p>1,304 Sq Ft.  3 Beds  2 Baths</p>\n<p><a href=\"#\">13205 Wichita Way.<br />Moreno Valley, CA,Â  92555<br /></a></p><p>Are you ready to buy?</p>\n<p>\"Route Guidance\"- \"Consider this site your property GPS(General Problem Solver!), sharing years of experience, tips to navigate the detours, and a road map to success.\"</p>",
+    "slug": "the-market",
+    "type": "page",
+    "template": "standard",
+    "author_id": 1,
+    "meta": {
+      "seo_title": "The Market",
+      "seo_description": "[et_pb_section fb_built=\"1\" admin_label=\"Hero section\" _builder_version=\"4.16\" background_enable_image=\"off\" background_position=\"top_center\" background_video_m...",
+      "parent_page": null
+    },
+    "published_at": "2018-09-21T05:09:28.000Z",
+    "created_at": "2018-09-21T05:09:28.000Z",
+    "updated_at": "2022-09-28T14:22:10.000Z"
+  },
+  {
+    "wp_id": 105,
+    "title": "Contact Us",
+    "content": "<h2>Contact Info</h2>\n<h4><strong>Virgina Hodges Schumm</strong></h4>\n<h4>REALTORÂ®</h4>\n<p><span>(951) 453-6122</span></p>\n<p><span>jenny@askforvirginia.com</span></p>facebook<p>Are you ready to buy? A Word to the Wise, Virginia shares years of experience with her clients, helpful tips and road maps to success.</p>",
+    "slug": "contact-us",
+    "type": "page",
+    "template": "contact",
+    "author_id": 1,
+    "meta": {
+      "seo_title": "Contact Us",
+      "seo_description": "[et_pb_section fb_built=\"1\" fullwidth=\"on\" _builder_version=\"3.22\"][/et_pb_section][et_pb_section fb_built=\"1\" _builder_version=\"3.22\" custom_padding=\"54px|0px|...",
+      "parent_page": null
+    },
+    "published_at": "2018-09-21T05:05:04.000Z",
+    "created_at": "2018-09-21T05:05:04.000Z",
+    "updated_at": "2020-06-28T17:35:07.000Z"
+  },
+  {
+    "wp_id": 94,
+    "title": "About Us",
+    "content": "<h1>About Us</h1>\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lacinia velit a feugiat finibus. Morbi iaculis diam id tellus iaculis, eu pretium metus fermentu\n\n\n\nQuidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus\n\n\n\nQuidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus\n\n\n\nQuidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus\n\n\n\n<h2>Our Story</h2>\nVestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Nulla quis lorem ut libero malesuada feugiat. Curabitur aliquet quam id dui posuere blandit. Cras ultricies ligula sed magna dictum porta.Â Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.\n\n\n\n<h2>Expert Agents</h2>\n\n\n\nCommercial Real Estate\n\n\n\nResidential Real Estate\n\n\n\nResidential Real Estate\n\n\n\nCommercial Real Estate\n\n\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lacinia velit a feugiat finibus. Morbi iaculis diam id tellus iaculis, eu pretium metus fermentu",
+    "slug": "about-us",
+    "type": "page",
+    "template": "about",
+    "author_id": 1,
+    "meta": {
+      "seo_title": "About Us",
+      "seo_description": "[et_pb_section bb_built=\"1\" admin_label=\"Hero section\" _builder_version=\"3.0.105\" use_background_color_gradient=\"on\" background_color_gradient_start=\"rgba(150,1...",
+      "parent_page": null
+    },
+    "published_at": "2018-09-21T05:04:36.000Z",
+    "created_at": "2018-09-21T05:04:36.000Z",
+    "updated_at": "2018-09-21T05:04:36.000Z"
+  },
+  {
+    "wp_id": 92,
+    "title": "SimplyRETS Demo Page",
+    "content": "[sr_map_search search_form=\"true\" list_view=\"true\"]",
+    "slug": "simplyrets-listings",
+    "type": "page",
+    "template": "standard",
+    "author_id": 1,
+    "meta": {
+      "seo_title": "SimplyRETS Demo Page",
+      "seo_description": "[sr_map_search search_form=\"true\" list_view=\"true\"]",
+      "parent_page": null
+    },
+    "published_at": "2018-09-21T04:33:15.000Z",
+    "created_at": "2018-09-21T04:33:15.000Z",
+    "updated_at": "2018-09-21T04:33:15.000Z"
+  },
+  {
+    "wp_id": 7,
+    "title": "Home",
+    "content": "askforvirginia.com is an all-in-one real estate site that gives you the local scoop about homes for sale, neighborhood insights, markets and trends to help you figure out exactly what, where, and when to buy, sell.<h4><a href=\"https://www.askforvirginia.com/#\"><img src=\"https://www.askforvirginia.com/wp-content/uploads/2018/09/original_11a9d77e46ad41a0449a08c5a0bdc86e-300x189.png\" width=\"300\" height=\"189\" alt=\"\" class=\"wp-image-131 alignnone size-medium\" />Virgina Hodges Schumm</a></h4>\n<p>Call: <span>(951) 453-6122</span><br /> Email: <span>jenny@askforvirginia.com</span></p>\nExplore a comprehensive selection of real estate and find your perfect home for sale in Moreno Valley, Riverside, Corona, Brea, Fullerton, and the surrounding areas with just a few clicks!In today's dynamic real estate market, discover how your home stacks up against others in your neighborhood and gain valuable insights to make informed decisions about selling your property.I would love to hear from you and understand how I can assist you in achieving your goals. Whether you are simply exploring options or are ready to embark on your search, I am here to provide the support you need.<iframe src=\"https://matrix.crmls.org/Matrix/public/IDX.aspx?idx=12c32074\" width=\"100%\" height=\"700\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\"></iframe><p>View the market report</p><p><em>Source: National Assn. of Homebuilders</em><br /><span>Just as townhome demand is rising so is condo demand. The first quarter was the best quarter for condo construction since the third quarter of 2008 — in about 14 years, according to the National Association of Home Builders.</span></p>\n<p><span>As buyers search for greater affordability, they may be drawn to condos. Still, the median existing condo and co-op sales price was $340,000 in April, an increase of 13.1% compared to a year earlier, according to the National Association of REALTORS®. But for comparison, the median existing single-family home price was $397,600 in April, up 14.8% annually.</span></p><p><em>Source: MarketWatch</em><br /><span>Double-digit home price increases compared to last year and rising interest rates are dampening housing affordability by raising the average monthly payment 50% more than a year ago. Those rising costs are sidelining more hopeful home buyers.</span></p>\n<p><span>But there are signs that the housing market could be slowing, which could put less pressure on home prices and offer hope for home sellers and buyers. For the fourth straight month, sales of new homes dropped, reaching their lowest level since the pandemic. Existing-home sales also decreased in April, falling for the third consecutive month and down nearly 6% compared to a year ago, according to National Assn. of REALTORS® data. The drop in sales could offer less competition to buyers who are eager to jump in but keep getting beat out.</span></p><p><em>Source: National Assn. of Homebuilders</em><br /><span>New home sales, which gained favor with many would-be buyers over the past two years due to the shortage of existing homes for sale, dropped for the fourth straight month in April, offering up another sign that the housing market is starting to slow.</span></p>\n<p><span>The volume of new single‐family home sale fell to a seasonally adjusted annual rate of 591,000 last month, according to the Census Bureau and the Department of Housing and Urban Development, down 16.6% from the March rate and 26.9% lower than the rate a year ago.</span></p><p><em>Source: National Assn. of REALTORS®</em><br /><span>As prices climb, homeowners who’ve owned their homes for a while have seen a boost in appreciation over the past decade. Homeowners in San Jose-Sunnyvale-Santa Clara, Calif.; San Francisco-Oakland-Hayward, Calif.; Anaheim-Santa Ana-Irvine, Calif.; and urban Honolulu, Hawaii built up the largest amount of home equity.</span></p>\n<p><span>A homeowner who purchased a single-family existing home 10 years ago would have gained $229,400 in home equity if the home were sold at the median price in the fourth quarter of 2021, according to analysis by the National Association of REALTORS®. In the past five years, home prices have risen at an annual pace of nearly 10%, NAR reports. A homeowner who purchased a typical home five years ago would have gained $125,300 from just price appreciation alone.</span></p><p><em>Source: CNBC</em><br /><span>As signs of a slowing real estate market are growing across the country — both existing-home sales and new-home sales are falling — home sellers are growing concerned that they could miss out on the buyer frenzy. With the market shifting, home sellers are in a hurry to find a buyer before demand weakens further</span></p>\n<p><span>The inventory of homes for sale rose 9% last week compared to a year ago, according to Realtor.com®. New listings are rising nearly twice as fast in the past four weeks as they did a year ago.</span></p><p><em>Source: CNBC</em><br /><span>Even after rates declined slightly last week, mortgage demand slipped to the lowest level since December 2018, according to the Mortgage Bankers Association. Despite a slight decline, mortgage rates are significantly higher than they were at the start of this year.</span></p>\n<p><span>The average contract interest rate for 30-year fixed-rate mortgages with conforming loan balances decreased to 5.33% from 5.46% with points dropping to 0.51 from 0.60 for loans with a 20% down payment. Applications for a mortgage to purchase a home fell 1% last week compared with the previous week. Volume was 14% lower than the same week one year ago.</span></p><p>The 2021 housing market was a tough one for home shoppers.</p>\n<p>Low rates and increased flexibility from working remotely put many first-time homebuyers on the map. But limited inventory, skyrocketing prices, and fierce bidding wars made housing harder to come by.</p>\n<p>But things may soon level out to a more â€˜normalizedâ€™ market, according to real estate experts. We could see competition start to taper off and price growth begin to moderate.</p>\n<p>In short, 2022 should be a better market for buyers.</p><p>Tired of high energy bills? Your clients probably are too. Here are eight smart home devices that can help lower utility bills and save money.</p><p>Donâ€™t neglect the dishwasher. Regular maintenance helps this important appliance run well, and these tips can help your clients keep a clean dishwasher.</p><img src=\"https://www.askforvirginia.com/wp-content/uploads/2018/10/Well-Find-You-The-Perfect-Space.jpg\" width=\"640\" height=\"360\" alt=\"\" class=\"wp-image-329 alignnone size-full\" />\n\nWe will help you find the house that is just right for you.<p>Single Family Home</p>\n<h4>$413,000</h4>\n<p>2,528 Sq Ft.  4 Beds  3 Baths</p>\n<p><a href=\"#\">24446 Barley Rd.<br />Moreno Valley 92557<br /></a></p><p>Single Family Home</p>\n<h4>$385,000</h4>\n<p>1,448 Sq Ft.  3 Beds  2 Baths</p>\n<p><a href=\"#\">410 W Campus View Dr.<br />Riverside , CA, 92507<br /></a></p><p>Single Family Home</p>\n<h4>$265,000</h4>\n<p>1,304 Sq Ft.  3 Beds  2 Baths</p>\n<p><a href=\"#\">13205 Wichita Way.<br />Moreno Valley, CA,Â  92555<br /></a></p>When I joined SCG (Spectrum Capital Group), another acronym to express my heart - Serving Christ Graciously, a gentle reminder that we are to work unto the Lord, as if He is our client, boss, partner and co-worker. Whether you are buying and/or selling, expect exceptional service - response to your concerns, staying ahead of the process, anticipating the next turn, understanding the critical path - sealing the deal as you seal up your moving boxes!I will do a qualified appraisal, suggest quick staging fixes, and quiz you about your financial goals to ensure confidence about the decisions you will soon be required to make as you navigate your quest for a solid future.Virginia has a practical eye, seeing property benefits, potential and possible \"road bumps\". Let her take you on a tour of your next property preview to see if there are any \"blindspots\", so you can buy with confidence.[advanced_iframe securitykey=”123451234512345” src=”https://www.calculator.net/mortgage-calculator.html” width=”110%” height=”6000”]<p>Join MCA The Church Online Below</p>\n<p><a href=\"http://mcathechurch.com/\">http://mcathechurch.com/</a></p>\n<p>Dont Make these time or Isolation an excuse not to worship God and Seek Him, do the reverse and run after him More than ever.</p>\n\n<div class=\"image-subtitle-wrapper\">\n<div class=\"image-subtitle sqs-dynamic-text\" data-width-percentage=\"33.6\"></div>\n</div>askforvirginia.com is an all-in-one real estate site that gives you the local scoop about homes for sale, neighborhood insights, markets and trends to help you figure out exactly what, where, and when to buy, sell.",
+    "slug": "home",
+    "type": "page",
+    "template": "home",
+    "author_id": 1,
+    "meta": {
+      "seo_title": "Home",
+      "seo_description": "[et_pb_section fb_built=\"1\" admin_label=\"Hero section\" _builder_version=\"4.16\" background_enable_image=\"off\" background_position=\"top_center\" background_video_m...",
+      "parent_page": null
+    },
+    "published_at": "2018-09-14T14:51:31.000Z",
+    "created_at": "2018-09-14T14:51:31.000Z",
+    "updated_at": "2024-10-31T16:48:13.000Z"
+  }
+]
