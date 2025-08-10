@@ -555,43 +555,65 @@ Password: [Set during initial setup]
 
             <!-- Settings Management -->
             <section id="settings-management" class="section">
-                <h2>⚙️ Settings Management</h2>
+                <h2>⚙️ Settings Management System</h2>
 
-                <h3>System Settings Overview</h3>
-                <p>The settings management system allows configuration of database, SMTP, and system settings through a web interface instead of manual .env file editing.</p>
+                <h3>Database-First Configuration</h3>
+                <p>The Virginia Real Estate platform uses a modern database-first configuration approach. Instead of managing numerous environment variables, most settings are stored encrypted in the database and managed through the admin web interface.</p>
 
                 <div class="alert info">
-                    <strong>Access:</strong> Admin Panel → Settings
+                    <strong>Access:</strong> Admin Panel → Settings → System Settings
                 </div>
 
                 <h3>Settings Categories</h3>
                 <ul>
                     <li><strong>Database Configuration:</strong> Connection settings, credentials</li>
-                    <li><strong>SMTP Settings:</strong> Email server configuration</li>
+                    <li><strong>SMTP Settings:</strong> Email server configuration (stored encrypted)</li>
                     <li><strong>System Settings:</strong> General application configuration</li>
                     <li><strong>API Configuration:</strong> External service settings</li>
                     <li><strong>Storage Settings:</strong> File and media storage options</li>
+                    <li><strong>Credentials:</strong> Advanced credential management for services</li>
                 </ul>
 
                 <h3>Settings Features</h3>
                 <ul>
-                    <li><strong>Encryption Support:</strong> Sensitive values (passwords) are encrypted</li>
-                    <li><strong>Category Filtering:</strong> Organize settings by type</li>
-                    <li><strong>Inline Editing:</strong> Edit settings directly in the interface</li>
-                    <li><strong>Migration Tool:</strong> Import existing .env settings</li>
-                    <li><strong>Password Visibility:</strong> Toggle sensitive value display</li>
+                    <li><strong>AES-256 Encryption:</strong> Sensitive values (passwords, API keys) encrypted at rest</li>
+                    <li><strong>Category Filtering:</strong> Organize settings by service type</li>
+                    <li><strong>Inline Editing:</strong> Edit settings directly in the admin interface</li>
+                    <li><strong>Environment Migration:</strong> One-click import of existing .env settings</li>
+                    <li><strong>Masked Display:</strong> Sensitive values show only first few characters</li>
+                    <li><strong>Fallback Support:</strong> Environment variables as fallback if database unavailable</li>
+                </ul>
+
+                <h3>SMTP Configuration (Database-Managed)</h3>
+                <p>SMTP settings are now stored in the database instead of environment variables:</p>
+                <ul>
+                    <li><strong>SMTP_HOST:</strong> Mail server hostname</li>
+                    <li><strong>SMTP_PORT:</strong> Server port (587, 465, etc.)</li>
+                    <li><strong>SMTP_SECURE:</strong> SSL/TLS configuration</li>
+                    <li><strong>SMTP_USER:</strong> Authentication username</li>
+                    <li><strong>SMTP_PASS:</strong> Password (encrypted in database)</li>
+                    <li><strong>FROM_EMAIL:</strong> Default sender address</li>
+                    <li><strong>FROM_NAME:</strong> Default sender name</li>
                 </ul>
 
                 <h3>Adding New Settings</h3>
                 <ol>
+                    <li>Navigate to Admin Panel → Settings</li>
                     <li>Click "Add Setting" button</li>
                     <li>Select category (database, smtp, system, api, storage)</li>
-                    <li>Enter key name (e.g., "DB_HOST")</li>
+                    <li>Enter key name (e.g., "SMTP_HOST")</li>
                     <li>Enter value</li>
                     <li>Add optional description</li>
-                    <li>Check "Encrypt this value" for sensitive data</li>
+                    <li>Check "Encrypt this value" for passwords and sensitive data</li>
                     <li>Click "Add Setting"</li>
                 </ol>
+
+                <h3>Environment Migration Tool</h3>
+                <p>Use the built-in migration tool to transfer existing environment variables to database storage:</p>
+                <div class="code-block">
+POST /api/settings/migrate-env
+</div>
+                <p>This automatically imports common settings like SMTP, database, and JWT configurations from .env files.</p>
             </section>
 
             <!-- Credential Management -->
@@ -624,6 +646,72 @@ Password: [Set during initial setup]
                     <li><strong>Storage Services:</strong> AWS S3, Cloudinary for media management</li>
                     <li><strong>Analytics:</strong> Google Analytics and tracking services</li>
                 </ul>
+            </section>
+
+            <!-- SMTP & Email Configuration -->
+            <section id="smtp-email-configuration" class="section">
+                <h2>📧 SMTP & Email Configuration (Database-Managed)</h2>
+
+                <h3>Modern Email Configuration</h3>
+                <p>The Virginia Real Estate platform uses a sophisticated database-managed email system with encrypted credential storage and intelligent fallbacks.</p>
+
+                <div class="alert info">
+                    <strong>Configuration Method:</strong> SMTP settings are configured through Admin Panel → Settings or Credentials, 
+                    NOT through environment variables.
+                </div>
+
+                <h3>Email System Architecture</h3>
+                <ul>
+                    <li><strong>Database-First:</strong> SMTP credentials stored encrypted in database</li>
+                    <li><strong>Credential Helper:</strong> <code>getSmtpCredentials()</code> function manages retrieval</li>
+                    <li><strong>Fallback Support:</strong> Environment variables as backup if database unavailable</li>
+                    <li><strong>Caching:</strong> 5-minute credential caching for performance</li>
+                    <li><strong>Security:</strong> AES-256 encryption for sensitive SMTP passwords</li>
+                </ul>
+
+                <h3>SMTP Configuration Options</h3>
+                <p>Configure via Admin Panel → Credentials → SMTP Primary:</p>
+                <ul>
+                    <li><strong>Host:</strong> SMTP server hostname (e.g., smtp.gmail.com)</li>
+                    <li><strong>Port:</strong> Server port (587 for STARTTLS, 465 for SSL)</li>
+                    <li><strong>Secure:</strong> SSL/TLS encryption setting</li>
+                    <li><strong>Username:</strong> Authentication username/email</li>
+                    <li><strong>Password:</strong> Authentication password (stored encrypted)</li>
+                </ul>
+
+                <h3>Email Features</h3>
+                <ul>
+                    <li><strong>Contact Forms:</strong> Professional contact form with auto-replies</li>
+                    <li><strong>HTML Templates:</strong> Rich HTML email templates with branding</li>
+                    <li><strong>reCAPTCHA Integration:</strong> Spam protection for contact forms</li>
+                    <li><strong>Multiple Recipients:</strong> Support for different contact categories</li>
+                    <li><strong>Error Handling:</strong> Robust error handling and fallback mechanisms</li>
+                </ul>
+
+                <h3>Configuration Steps</h3>
+                <ol>
+                    <li>Go to Admin Panel → Credentials</li>
+                    <li>Add or edit "smtp_primary" service</li>
+                    <li>Configure SMTP server details</li>
+                    <li>Mark credentials as active</li>
+                    <li>Test email functionality through contact form</li>
+                    <li>Monitor logs for any connection issues</li>
+                </ol>
+
+                <h3>Email System Integration</h3>
+                <p>The system automatically:</p>
+                <ul>
+                    <li>Retrieves SMTP credentials from database via <code>credentialsHelper.ts</code></li>
+                    <li>Creates Nodemailer transporter with decrypted credentials</li>
+                    <li>Falls back to environment variables if database credentials unavailable</li>
+                    <li>Caches credentials for 5 minutes to reduce database queries</li>
+                    <li>Logs errors and provides fallback error messages</li>
+                </ul>
+
+                <div class="alert warning">
+                    <strong>Migration Required:</strong> If upgrading from environment-based SMTP, use the migration tool 
+                    (<code>POST /api/settings/migrate-env</code>) to transfer existing SMTP settings to database storage.
+                </div>
             </section>
 
             <!-- AI Content Generation -->
@@ -740,9 +828,16 @@ cd ../..
                     <li><strong>Plesk Version:</strong> Plesk Obsidian (Latest) or Plesk Onyx</li>
                     <li><strong>Operating System:</strong> Linux (Ubuntu 20.04+ or CentOS 7+) recommended</li>
                     <li><strong>Node.js Support:</strong> Node.js Toolkit extension must be installed</li>
+                    <li><strong>Node.js Version:</strong> Node.js v18+ (project currently running v18.19.1)</li>
+                    <li><strong>npm Version:</strong> npm v8+ (project currently running v9.2.0)</li>
                     <li><strong>Web Server:</strong> NGINX with reverse proxy capability</li>
-                    <li><strong>Database:</strong> MariaDB 10.4+ or MySQL 8.0+</li>
+                    <li><strong>Database:</strong> MariaDB 11.4.8+ or MySQL 8.0+</li>
                 </ul>
+
+                <div class="alert info">
+                    <strong>💡 Node.js Version Management:</strong> The project includes a <code>.node-version</code> file specifying Node.js v24, 
+                    but production is running v18.19.1 successfully. Update Node.js version in production carefully to avoid breaking changes.
+                </div>
 
                 <h3>Deployment Methods</h3>
 
@@ -778,12 +873,34 @@ cd ../..
                 <h3>Node.js Configuration</h3>
                 <h4>Basic Configuration</h4>
                 <ul>
-                    <li><strong>Node.js Version:</strong> 18.x+ recommended</li>
+                    <li><strong>Node.js Version:</strong> 18.x+ recommended (currently v18.19.1)</li>
                     <li><strong>Application Mode:</strong> Production</li>
                     <li><strong>Document Root:</strong> <code>/var/www/vhosts/askforvirginia.com/askforvirginia.com/public</code></li>
                     <li><strong>Application Root:</strong> <code>/var/www/vhosts/askforvirginia.com/askforvirginia.com</code></li>
                     <li><strong>Application Startup File:</strong> <code>apps/api/dist/server.js</code></li>
+                    <li><strong>Development Environment:</strong> <code>/var/www/vhosts/askforvirginia.com/dev2.askforvirginia.com</code></li>
                 </ul>
+
+                <h4>Environment Variables Configuration</h4>
+                <p>The project uses minimal environment variables for bootstrap configuration. Most settings are managed through the database:</p>
+                <ul>
+                    <li><strong>NODE_ENV:</strong> development/production</li>
+                    <li><strong>PORT:</strong> API server port (default: 5001)</li>
+                    <li><strong>FRONTEND_URL:</strong> Frontend URL (default: http://localhost:3001)</li>
+                    <li><strong>Basic DB_* Variables:</strong> Bootstrap database connection only</li>
+                    <li><strong>SETTINGS_ENCRYPTION_KEY:</strong> Key for encrypting sensitive database settings</li>
+                </ul>
+
+                <div class="alert info">
+                    <strong>🗄️ Database-First Configuration:</strong> SMTP, JWT, API keys, and most sensitive settings are stored 
+                    encrypted in the database via the Settings and Credentials management system. Environment variables are used 
+                    only for bootstrap connection and as fallbacks.
+                </div>
+
+                <div class="alert warning">
+                    <strong>⚠️ Environment Setup Required:</strong> Ensure basic environment variables are configured in 
+                    <code>apps/api/.env</code> file. Use Admin Panel → Settings to configure SMTP, credentials, and other services.
+                </div>
 
                 <h3>Build Process</h3>
                 <div class="code-block">
@@ -854,9 +971,23 @@ location / {
             <section id="database-configuration" class="section">
                 <h2>🗄️ Database Configuration</h2>
 
-                <h3>MariaDB Setup</h3>
+                <h3>Current Database Setup</h3>
+                <div class="alert info">
+                    <strong>Current Status:</strong> MariaDB 11.4.8 is running successfully with the <code>virginia</code> database operational.
+                </div>
+
+                <h4>Production Database Configuration</h4>
+                <ul>
+                    <li><strong>Database Version:</strong> MariaDB 11.4.8</li>
+                    <li><strong>Development Database:</strong> <code>virginia</code></li>
+                    <li><strong>Production Database:</strong> <code>virginia_prod</code> (recommended)</li>
+                    <li><strong>Root Credentials:</strong> <code>root / D@taLore323</code></li>
+                    <li><strong>Application User:</strong> <code>virginia</code> with host <code>%</code></li>
+                </ul>
+
+                <h3>MariaDB Setup for Production</h3>
                 <ol>
-                    <li>Go to <strong>Databases</strong></li>
+                    <li>Go to <strong>Databases</strong> in Plesk</li>
                     <li>Click <strong>Add Database</strong></li>
                     <li>Configure database settings:
                         <ul>
@@ -865,14 +996,34 @@ location / {
                             <li><strong>Password:</strong> Strong password</li>
                         </ul>
                     </li>
+                    <li>Update <code>.env</code> file with production credentials</li>
+                    <li>Run database migrations and seeding</li>
                 </ol>
+
+                <div class="alert warning">
+                    <strong>⚠️ Database Access Issue:</strong> The current <code>virginia</code> user may have connection issues. 
+                    Verify user privileges and host settings if experiencing authentication problems.
+                </div>
 
                 <h3>Database Security</h3>
                 <ul>
                     <li><strong>Encrypted Passwords:</strong> Database passwords stored with AES-256 encryption</li>
-                    <li><strong>Connection Pooling:</strong> Optimized database connections</li>
-                    <li><strong>Query Logging:</strong> Debug mode query tracking</li>
-                    <li><strong>Backup Integration:</strong> Automated backup configuration</li>
+                    <li><strong>Connection Pooling:</strong> Optimized database connections with Sequelize</li>
+                    <li><strong>Query Logging:</strong> Debug mode query tracking enabled</li>
+                    <li><strong>Backup Integration:</strong> Automated backup configuration available</li>
+                    <li><strong>User Permissions:</strong> Minimal required permissions for application users</li>
+                </ul>
+
+                <h3>Database Tables</h3>
+                <p>The application uses the following main tables:</p>
+                <ul>
+                    <li><strong>Users:</strong> Authentication and user management</li>
+                    <li><strong>Properties:</strong> Property listings and details</li>
+                    <li><strong>BlogPosts:</strong> Blog content management</li>
+                    <li><strong>MarketReports:</strong> Market analytics data</li>
+                    <li><strong>Settings:</strong> System configuration</li>
+                    <li><strong>Credentials:</strong> Encrypted API keys and secrets</li>
+                    <li><strong>HeaderMedia:</strong> Dynamic header video management</li>
                 </ul>
             </section>
 

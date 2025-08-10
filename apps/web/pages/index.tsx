@@ -2,6 +2,7 @@ import React from 'react';
 import Layout from '@/components/layout/Layout';
 import HeroSection from '@/components/home/HeroSection';
 import FeaturedProperties from '@/components/home/FeaturedProperties';
+import MLSSearch from '@/components/home/MLSSearch';
 import MarketInsights from '@/components/home/MarketInsights';
 import ServicesOverview from '@/components/home/ServicesOverview';
 import AboutVirginia from '@/components/home/AboutVirginia';
@@ -17,6 +18,7 @@ export default function Home() {
     >
       <HeroSection />
       <FeaturedProperties />
+      <MLSSearch />
       <MarketInsights />
       <ServicesOverview />
       <AboutVirginia />
