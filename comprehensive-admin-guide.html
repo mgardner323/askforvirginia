@@ -403,6 +403,7 @@
                         <li><a href="#troubleshooting">Troubleshooting</a></li>
                         <li><a href="#api-endpoints">API Endpoints Reference</a></li>
                         <li><a href="#best-practices">Best Practices</a></li>
+                        <li><a href="#test-deployment">🚀 Test Deployment Instructions</a></li>
                     </ol>
                 </div>
             </div>
@@ -1179,6 +1180,364 @@ DEBUG=* npm run dev
                 </ul>
             </section>
 
+        </div>
+
+        <!-- Test Deployment Guide -->
+        <div class="main-content" style="margin-top: 60px;">
+            <section id="test-deployment" class="section">
+                <h2>🚀 Test Deployment Instructions</h2>
+
+                <div class="alert info">
+                    <strong>📋 Prerequisites:</strong> This guide assumes you have completed all the setup steps above and want to deploy 
+                    from the development environment (<code>dev2.askforvirginia.com</code>) to production (<code>askforvirginia.com</code>).
+                </div>
+
+                <h3>Phase 1: Pre-Deployment Checklist</h3>
+                <div class="alert warning">
+                    <strong>⚠️ Important:</strong> Complete ALL items in this checklist before proceeding with deployment.
+                </div>
+
+                <h4>Environment Verification</h4>
+                <ol>
+                    <li><strong>Development Environment Status</strong>
+                        <div class="code-block">
+cd /var/www/vhosts/askforvirginia.com/dev2.askforvirginia.com
+npm run dev
+# Verify both API (port 5001) and Web (port 3001) servers start successfully
+                        </div>
+                    </li>
+                    <li><strong>Database Connection Test</strong>
+                        <div class="code-block">
+mariadb -u root -p'D@taLore323' -e "SHOW DATABASES;"
+# Verify 'virginia' database exists and is accessible
+                        </div>
+                    </li>
+                    <li><strong>Build Process Test</strong>
+                        <div class="code-block">
+cd /var/www/vhosts/askforvirginia.com/dev2.askforvirginia.com
+npm run build
+# Ensure both API and Web applications build without errors
+                        </div>
+                    </li>
+                    <li><strong>Git Repository Status</strong>
+                        <div class="code-block">
+git status
+# Ensure all changes are committed (working tree clean)
+                        </div>
+                    </li>
+                </ol>
+
+                <h3>Phase 2: Production Environment Setup</h3>
+
+                <h4>Step 1: Create Production Database</h4>
+                <ol>
+                    <li>Log into Plesk admin panel</li>
+                    <li>Navigate to <strong>Databases</strong></li>
+                    <li>Click <strong>Add Database</strong></li>
+                    <li>Configure production database:
+                        <ul>
+                            <li><strong>Database name:</strong> <code>virginia_prod</code></li>
+                            <li><strong>User:</strong> <code>virginia_prod</code></li>
+                            <li><strong>Password:</strong> Generate strong password (save for later)</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h4>Step 2: Prepare Production Directory</h4>
+                <div class="code-block">
+# Create production directory structure
+mkdir -p /var/www/vhosts/askforvirginia.com/askforvirginia.com
+cd /var/www/vhosts/askforvirginia.com/askforvirginia.com
+
+# Copy files from development environment
+cp -r ../dev2.askforvirginia.com/* .
+
+# Remove development-specific files
+rm -rf node_modules apps/*/node_modules
+rm -f apps/api/.env
+                </div>
+
+                <h4>Step 3: Production Environment Configuration</h4>
+                <ol>
+                    <li><strong>Create Production .env File</strong>
+                        <div class="code-block">
+cd /var/www/vhosts/askforvirginia.com/askforvirginia.com/apps/api
+cp .env.example .env
+
+# Edit the .env file with production values:
+nano .env
+                        </div>
+                    </li>
+                    <li><strong>Required .env Changes for Production</strong>
+                        <div class="code-block">
+NODE_ENV=production
+PORT=5001
+FRONTEND_URL=https://askforvirginia.com
+
+# Database - Use production database credentials
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=virginia_prod
+DB_USER=virginia_prod
+DB_PASSWORD=your-production-db-password
+
+# Generate new JWT secrets for production
+JWT_SECRET=generate-new-32-character-secret-here
+JWT_REFRESH_SECRET=generate-new-32-character-refresh-secret
+
+# Production SMTP (if not using database management)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=support@gardnerhouse.us
+SMTP_PASS=your-smtp-password
+
+# Production deployment paths
+PROD_HOST=askforvirginia.com
+PROD_PATH=/var/www/vhosts/askforvirginia.com/askforvirginia.com
+PROD_DB_NAME=virginia_prod
+PROD_DB_USER=virginia_prod
+PROD_DB_PASS=your-production-db-password
+                        </div>
+                    </li>
+                </ol>
+
+                <h3>Phase 3: Deploy and Build</h3>
+
+                <h4>Step 1: Install Dependencies and Build</h4>
+                <div class="code-block">
+cd /var/www/vhosts/askforvirginia.com/askforvirginia.com
+
+# Install all dependencies
+npm install
+
+# Install dependencies for both apps
+cd apps/api && npm install && cd ../..
+cd apps/web && npm install && cd ../..
+
+# Build both applications
+npm run build
+                </div>
+
+                <h4>Step 2: Database Setup</h4>
+                <div class="code-block">
+# Run database migrations and seeding
+cd apps/api
+npm run start
+# This will create tables and seed initial data
+
+# Alternative: If you have migration scripts
+# node scripts/sync-database.js
+                </div>
+
+                <h3>Phase 4: Plesk Node.js Configuration</h3>
+
+                <h4>Step 1: Configure Node.js Application in Plesk</h4>
+                <ol>
+                    <li>Log into Plesk admin panel</li>
+                    <li>Go to <strong>Websites & Domains → askforvirginia.com</strong></li>
+                    <li>Click <strong>Node.js</strong> (install Node.js Toolkit if not available)</li>
+                    <li>Configure application settings:
+                        <ul>
+                            <li><strong>Node.js version:</strong> 18.x</li>
+                            <li><strong>Application mode:</strong> Production</li>
+                            <li><strong>Document Root:</strong> <code>/var/www/vhosts/askforvirginia.com/askforvirginia.com/public</code></li>
+                            <li><strong>Application Root:</strong> <code>/var/www/vhosts/askforvirginia.com/askforvirginia.com</code></li>
+                            <li><strong>Application Startup File:</strong> <code>apps/api/dist/server.js</code></li>
+                        </ul>
+                    </li>
+                    <li>Click <strong>Enable Node.js</strong></li>
+                </ol>
+
+                <h4>Step 2: PM2 Configuration (Alternative/Additional)</h4>
+                <div class="code-block">
+# Install PM2 globally if not installed
+npm install -g pm2
+
+# Start applications with PM2
+pm2 start ecosystem.config.js --env production
+
+# Save PM2 configuration
+pm2 save
+pm2 startup
+                </div>
+
+                <h3>Phase 5: NGINX Configuration</h3>
+
+                <h4>Add NGINX Rules in Plesk</h4>
+                <ol>
+                    <li>Go to <strong>Websites & Domains → askforvirginia.com</strong></li>
+                    <li>Click <strong>Apache & nginx Settings</strong></li>
+                    <li>In the <strong>nginx directives</strong> section, add:
+                        <div class="code-block">
+# Force HTTPS
+if ($scheme = http) {
+    return 301 https://askforvirginia.com$request_uri;
+}
+
+# API Routes
+location /api/ {
+    proxy_pass http://127.0.0.1:5001;
+    proxy_redirect off;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Host $server_name;
+    proxy_buffer_size 128k;
+    proxy_buffers 4 256k;
+    proxy_busy_buffers_size 256k;
+}
+
+# Admin Panel Routes
+location /admin/ {
+    proxy_pass http://127.0.0.1:3001;
+    proxy_redirect off;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Host $server_name;
+}
+
+# Main application routes
+location / {
+    proxy_pass http://127.0.0.1:3001;
+    proxy_redirect off;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Host $server_name;
+}
+                        </div>
+                    </li>
+                    <li>Click <strong>OK</strong> to apply settings</li>
+                </ol>
+
+                <h3>Phase 6: Testing and Verification</h3>
+
+                <h4>Step 1: Application Testing</h4>
+                <div class="code-block">
+# Test API endpoints
+curl -I https://askforvirginia.com/api/health
+# Should return HTTP 200
+
+# Test main site
+curl -I https://askforvirginia.com/
+# Should return HTTP 200
+
+# Test admin panel
+curl -I https://askforvirginia.com/admin/login
+# Should return HTTP 200
+                </div>
+
+                <h4>Step 2: Database Verification</h4>
+                <div class="code-block">
+# Check production database tables
+mariadb -u virginia_prod -p virginia_prod -e "SHOW TABLES;"
+# Should show: BlogPosts, Credentials, HeaderMedia, MarketReports, Properties, Settings, Users
+                </div>
+
+                <h4>Step 3: Admin Panel Configuration</h4>
+                <ol>
+                    <li>Visit <code>https://askforvirginia.com/admin/login</code></li>
+                    <li>Log in with admin credentials</li>
+                    <li>Go to <strong>Settings</strong> and configure:
+                        <ul>
+                            <li>SMTP settings (if using database management)</li>
+                            <li>Database settings verification</li>
+                            <li>System configuration</li>
+                        </ul>
+                    </li>
+                    <li>Test contact form functionality</li>
+                    <li>Verify MLS iframe is loading on home page</li>
+                </ol>
+
+                <h3>Phase 7: Post-Deployment Checklist</h3>
+
+                <div class="alert success">
+                    <strong>✅ Verify All Items Before Going Live:</strong>
+                </div>
+
+                <h4>Functionality Tests</h4>
+                <ul>
+                    <li>✅ Home page loads with all sections including MLS iframe</li>
+                    <li>✅ Property listings page functional</li>
+                    <li>✅ Blog posts loading correctly</li>
+                    <li>✅ Market reports accessible</li>
+                    <li>✅ All 12 mortgage calculators working</li>
+                    <li>✅ Contact form sends emails</li>
+                    <li>✅ Admin panel fully accessible</li>
+                    <li>✅ User authentication working</li>
+                    <li>✅ Database queries executing successfully</li>
+                    <li>✅ HTTPS redirects working</li>
+                </ul>
+
+                <h4>Performance Verification</h4>
+                <ul>
+                    <li>✅ Page load times under 3 seconds</li>
+                    <li>✅ API response times under 1 second</li>
+                    <li>✅ Database queries optimized</li>
+                    <li>✅ Images loading properly</li>
+                    <li>✅ Mobile responsive design working</li>
+                </ul>
+
+                <h3>Phase 8: Troubleshooting Common Issues</h3>
+
+                <h4>Application Won't Start</h4>
+                <div class="alert warning">
+                    <strong>Problem:</strong> 502/503 errors when accessing the site
+                </div>
+                <p><strong>Solutions:</strong></p>
+                <ul>
+                    <li>Check Node.js application status in Plesk</li>
+                    <li>Verify environment variables are correctly set</li>
+                    <li>Check application logs: <code>tail -f /var/www/vhosts/askforvirginia.com/askforvirginia.com/logs/*.log</code></li>
+                    <li>Restart Node.js application in Plesk</li>
+                    <li>Check database connectivity</li>
+                </ul>
+
+                <h4>Database Connection Issues</h4>
+                <div class="alert warning">
+                    <strong>Problem:</strong> Database connection errors
+                </div>
+                <p><strong>Solutions:</strong></p>
+                <ul>
+                    <li>Verify production database credentials in .env</li>
+                    <li>Test database connection manually</li>
+                    <li>Check database user permissions</li>
+                    <li>Ensure MariaDB service is running</li>
+                </ul>
+
+                <h4>NGINX Proxy Issues</h4>
+                <div class="alert warning">
+                    <strong>Problem:</strong> API calls not reaching backend
+                </div>
+                <p><strong>Solutions:</strong></p>
+                <ul>
+                    <li>Verify NGINX directives are correctly configured</li>
+                    <li>Check that API server is running on port 5001</li>
+                    <li>Test proxy configuration with curl</li>
+                    <li>Review NGINX error logs</li>
+                </ul>
+
+                <h3>Rollback Plan</h3>
+                <div class="alert danger">
+                    <strong>Emergency Rollback:</strong> If deployment fails and site is broken
+                </div>
+                <ol>
+                    <li>Disable Node.js application in Plesk</li>
+                    <li>Restore previous site files (if backed up)</li>
+                    <li>Revert database changes (if applicable)</li>
+                    <li>Reset NGINX configuration to previous state</li>
+                    <li>Re-enable previous site configuration</li>
+                </ol>
+
+                <div class="alert success">
+                    <strong>🎉 Deployment Complete!</strong> Your Virginia Real Estate site should now be live at <code>https://askforvirginia.com</code> 
+                    with all features including the new MLS iframe integration.
+                </div>
+            </section>
         </div>
 
         <div class="footer">
