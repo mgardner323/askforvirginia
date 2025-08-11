@@ -205,16 +205,76 @@
         }
 
         /* Code Blocks */
+        .code-container {
+            position: relative;
+            margin: 20px 0;
+        }
+
         .code-block {
             background: #1a202c;
             color: #e2e8f0;
             padding: 20px;
             border-radius: 8px;
-            margin: 20px 0;
             overflow-x: auto;
-            font-family: 'Monaco', 'Menlo', monospace;
-            font-size: 0.9rem;
-            line-height: 1.4;
+            font-family: 'Fira Code', 'Monaco', 'Menlo', 'Consolas', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            white-space: pre;
+            position: relative;
+        }
+
+        .code-block pre {
+            margin: 0;
+            padding: 0;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #4a5568;
+            color: #e2e8f0;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+
+        .copy-button:hover {
+            background: #667eea;
+        }
+
+        .copy-button.copied {
+            background: #48bb78;
+            color: white;
+        }
+
+        .copy-button:active {
+            transform: scale(0.95);
+        }
+
+        /* Command styling */
+        .command {
+            color: #68d391;
+            font-weight: 500;
+        }
+
+        .comment {
+            color: #a0aec0;
+            font-style: italic;
+        }
+
+        .variable {
+            color: #fbb6ce;
+        }
+
+        .string {
+            color: #faf089;
         }
 
         /* Tables */
@@ -1205,8 +1265,7 @@ cd /var/www/vhosts/askforvirginia.com/dev2.askforvirginia.com
 
 # First ensure database is properly synchronized
 # If you encounter Sequelize sync errors, run:
-mariadb -u root -p'D@taLore323' -e "USE virginia; 
-DROP TABLE IF EXISTS temp_table_cleanup;"
+mariadb -u root -p'D@taLore323' -e "USE virginia; DROP TABLE IF EXISTS temp_table_cleanup;"
 
 # Now start development servers
 npm run dev
@@ -1527,20 +1586,12 @@ mariadb -u virginia_prod -p virginia_prod -e "SHOW TABLES;"
                 <ol>
                     <li><strong>Clean up blog_posts table:</strong>
                         <div class="code-block">
-mariadb -u root -p'D@taLore323' -e "USE virginia; 
-ALTER TABLE blog_posts DROP COLUMN IF EXISTS is_published,
-DROP COLUMN IF EXISTS is_featured;"
+mariadb -u root -p'D@taLore323' -e "USE virginia; ALTER TABLE blog_posts DROP COLUMN IF EXISTS is_published, DROP COLUMN IF EXISTS is_featured;"
                         </div>
                     </li>
                     <li><strong>Clean up market_reports table:</strong>
                         <div class="code-block">
-mariadb -u root -p'D@taLore323' -e "USE virginia; 
-ALTER TABLE market_reports DROP COLUMN IF EXISTS title,
-DROP COLUMN IF EXISTS slug,
-DROP COLUMN IF EXISTS data,
-DROP COLUMN IF EXISTS analysis,
-DROP COLUMN IF EXISTS trends,
-DROP COLUMN IF EXISTS is_published;"
+mariadb -u root -p'D@taLore323' -e "USE virginia; ALTER TABLE market_reports DROP COLUMN IF EXISTS title, DROP COLUMN IF EXISTS slug, DROP COLUMN IF EXISTS data, DROP COLUMN IF EXISTS analysis, DROP COLUMN IF EXISTS trends, DROP COLUMN IF EXISTS is_published;"
                         </div>
                     </li>
                     <li><strong>Restart development servers:</strong>
@@ -1588,5 +1639,98 @@ npm run dev
             <p>© 2025 Virginia Real Estate. All rights reserved.</p>
         </div>
     </div>
+
+    <script>
+        // Copy to clipboard functionality
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                button.textContent = 'Failed';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+
+        // Initialize code blocks with copy buttons
+        function initializeCodeBlocks() {
+            const codeBlocks = document.querySelectorAll('.code-block');
+            
+            codeBlocks.forEach((block, index) => {
+                // Wrap in container if not already wrapped
+                if (!block.parentElement.classList.contains('code-container')) {
+                    const container = document.createElement('div');
+                    container.className = 'code-container';
+                    block.parentElement.insertBefore(container, block);
+                    container.appendChild(block);
+                }
+
+                // Create copy button
+                const copyButton = document.createElement('button');
+                copyButton.className = 'copy-button';
+                copyButton.textContent = 'Copy';
+                copyButton.onclick = () => copyToClipboard(block.textContent.trim(), copyButton);
+                
+                // Add copy button to container
+                block.parentElement.appendChild(copyButton);
+
+                // Format code content
+                formatCodeBlock(block);
+            });
+        }
+
+        // Format code blocks with syntax highlighting
+        function formatCodeBlock(block) {
+            let content = block.innerHTML;
+            
+            // Basic syntax highlighting
+            content = content
+                // Commands (lines starting with common commands)
+                .replace(/(^|\n)(cd|npm|git|mariadb|mysql|curl|mkdir|cp|mv|rm|chmod|chown|systemctl|service|docker|pm2|node|cat|echo|ls|grep|find|sed|awk|tail|head|less|more)\s/gm, 
+                    '$1<span class="command">$2</span> ')
+                
+                // Comments (lines starting with #)
+                .replace(/(^|\n)(#.*$)/gm, '$1<span class="comment">$2</span>')
+                
+                // Strings in quotes
+                .replace(/("[^"]*")/g, '<span class="string">$1</span>')
+                .replace(/('[^']*')/g, '<span class="string">$1</span>')
+                
+                // Environment variables
+                .replace(/(\$[A-Z_][A-Z0-9_]*)/g, '<span class="variable">$1</span>')
+                .replace(/(NODE_ENV|PORT|DB_HOST|DB_PORT|DB_NAME|DB_USER|DB_PASSWORD|SMTP_HOST|SMTP_PORT|JWT_SECRET)/g, '<span class="variable">$1</span>');
+
+            block.innerHTML = content;
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initializeCodeBlocks);
+
+        // Smooth scrolling for anchor links
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
